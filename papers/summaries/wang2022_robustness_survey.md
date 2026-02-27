@@ -32,3 +32,28 @@ Robustness in NLP is mainly about how much performance drops when the test data 
 - In-domain accuracy ≠ robustness.
 - Cross-dataset testing is a practical way to measure natural distribution shift robustness.
 - Many failures are due to spurious correlations learned from dataset quirks.
+## 9) LLM Prompt(s) Used
+You are helping me read an academic paper for my MSc thesis.
+
+Task:
+1) First, write an overall summary of the paper in 150–250 words (plain English).
+2) Then, produce structured notes with sections 1–8 exactly as below.
+
+Sections (1–8):
+1) Citation (as given)
+2) One-sentence takeaway
+3) What they propose (simple)
+4) What they tested (datasets/tasks)
+5) Key evidence (beginner-level, 2–4 bullets)
+6) Cost / practicality for an MSc
+7) How I can use this in my project (cross-dataset fake news detection)
+8) Risks / notes
+
+Constraints:
+- Use ONLY the text I paste below. Do not add outside facts.
+- If something is missing, write “Not mentioned”.
+- Use short bullet points for sections 3–8.
+- If you make an inference, clearly label it as “Inference”.
+- Keep wording simple and clear.
+
+

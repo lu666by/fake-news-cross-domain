@@ -1,55 +1,76 @@
-# Plan (Next 2 Weeks) — Literature-focused (Dublin time / GMT)
+# Plan (Next 2 Weeks) — Implementation-focused (Ireland time / GMT)
+
+> Note (for supervisor): The up-to-date plan + progress is maintained in `tracking.md` (single source of truth).
+> This file provides background detail only.
+
+## Context
+- I will be travelling back to Ireland on **2026-03-04**.
+- Due to family medical appointments this week, I shifted the implementation tasks to start from **2026-03-05**.
 
 ## Goals (deliverables)
-- 2026-02-09 to 2026-02-22: produce 8–10 one-page paper summaries in `papers/summaries/`
-  - Note: 3 core papers already skimmed + summarized; this period will (1) refine those summaries and (2) add new summaries.
-- By 2026-02-22: write a 1–2 page literature synthesis (gaps + minimal experiment plan)
+By **2026-03-12** (approx. two weeks after return):
+1) A clean and readable tracker (`tracking.md`) showing what is planned vs done (with evidence links).
+2) Start coding with **LIAR**:
+   - `notebooks/01_liar_load.ipynb` (load + inspect)
+   - `notebooks/02_tfidf_baseline.ipynb` (TF-IDF baseline)
+   - `results/liar_baseline.md` (metrics recorded)
+3) Clean notes so that all questions/risks are explainable:
+   - `notes/clean_notes.md`
 
 ---
 
-## Week 1 (2026-02-09 to 2026-02-15)
+## Week 1 (2026-03-05 to 2026-03-08)
 
-### Day 1 (2026-02-09, Mon)
-- Task: Upgrade LIAR paper from skim → clearer notes (dataset facts + limitations)
-- Output: refine `papers/summaries/wang2017_liar.md` + update any missing details in summary
+### Day 1 (2026-03-05)
+- Task: Finish “single entry” tracking setup
+- Output:
+  - Ensure `tracking.md` is the only place that tracks status
+  - Add short pointers at the top of:
+    - `plans/plan_next_2_weeks.md`
+    - `progress/progress_summary.md`
 
-### Day 2 (2026-02-10, Tue)
-- Task: Skim/Read a cross-dataset / distribution shift paper #1
-  - Suggested options: WILDS (distribution shifts benchmark) OR a paper about dataset bias/spurious correlations
-- Output: 1-page summary (new file) + add to `papers/reading_list.md`
+### Day 2 (2026-03-06)
+- Task: Clean notes (only keep explainable items)
+- Output:
+  - Create/update `notes/clean_notes.md`
+  - Apply “3-sentence test” for each note/question:
+    - What it means / Why it matters / Next step
 
-### Day 3 (2026-02-11, Wed)
-- Task: Skim/Read a cross-dataset / distribution shift paper #2
-  - Suggested options: CheckList (behavioral testing) OR another OOD evaluation protocol paper
-- Output: 1-page summary (new file) + add to `papers/reading_list.md`
-
-### Day 4 (2026-02-12, Thu)
-- Task: Read the FakeNewsNet dataset paper (or a fake-news benchmark paper)
-- Output: 1-page summary (new file) + add to `papers/reading_list.md`
-
-### Day 5 (2026-02-13, Fri)
-- Task: Read a simple baselines / transfer evaluation protocol paper (keep it practical)
-- Output: 1-page summary (new file) + add brief notes in `progress/progress_summary.md`
-
-### Weekend (2026-02-14 to 2026-02-15, Sat–Sun)
-- Buffer: catch-up + clean notes
-- Output: update `progress/progress_summary.md` (what was completed + key takeaways + next actions)
+### Day 3–Day 4 (2026-03-07 to 2026-03-08)
+- Task: Start LIAR coding — load + inspect dataset
+- Output:
+  - `notebooks/01_liar_load.ipynb` with:
+    - load train/valid/test
+    - dataset shapes
+    - label counts
+    - 3 sample statements
 
 ---
 
-## Week 2 (2026-02-16 to 2026-02-22)
+## Week 2 (2026-03-08 to 2026-03-12)
 
-### Day 6–Day 9 (2026-02-16 to 2026-02-19, Mon–Thu)
-- Task: Read 3–4 papers (robustness / domain adaptation / fake news benchmarks)
-  - At least 1 paper related to domain adaptation (beyond DAPT paper)
-  - At least 1 paper related to fake news benchmarks or cross-domain fake news detection
-- Output: 3–4 one-page summaries (new files) + update `papers/reading_list.md`
+### Day 5–Day 7 (2026-03-08 to 2026-03-10)
+- Task: TF-IDF baseline + metrics (LIAR in-domain)
+- Output:
+  - `notebooks/02_tfidf_baseline.ipynb`:
+    - TF-IDF + Logistic Regression (optional: Linear SVM)
+    - report Accuracy + Macro-F1 + Confusion Matrix
+  - Fill `results/liar_baseline.md` with the results
 
-### Day 10–Day 12 (2026-02-20 to 2026-02-22, Fri–Sun)
-- Task: Write a 1–2 page literature synthesis
-  - What is known about cross-dataset transfer / distribution shift
-  - What gaps remain (especially for LIAR vs FakeNewsNet mismatch)
-  - Minimal feasible experiment plan (baselines + evaluation protocol)
-- Output: add `literature_synthesis.md` (place in `plans/` or `progress/`) + list key gaps + candidate baselines
+### Day 8–Day 9 (2026-03-11 to 2026-03-12)
+- Task: Review & polish (make it supervisor-readable)
+- Output:
+  - Update `tracking.md` statuses + evidence links
+  - Ensure `notes/clean_notes.md` contains only items I can explain clearly
+  - Short update in `progress/progress_summary.md` (1–2 paragraphs):
+    - what was done
+    - what is next
 
 ---
+
+## Literature reading (lightweight, optional)
+- Keep literature work minimal during these two weeks.
+- Only add new paper summaries if they directly support the implementation tasks.
+- If any new summary is added, include:
+  - “LLM Prompt(s)” section
+  - file saved under `papers/summaries/`

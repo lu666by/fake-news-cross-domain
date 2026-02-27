@@ -32,6 +32,27 @@ If a pretrained language model (e.g., RoBERTa) is applied to a new domain, conti
 - Combining both phases may perform best but is also more expensive; experiments should remain small and controlled.
 
 ## 9) LLM Prompt(s) Used
-- Prompt 1: Correct grammar, spelling, and awkward phrasing; improve academic tone using simple English; fix logical flow without adding new claims.  
-- Prompt 2: Do not add new information; if something is missing, write “[Not in my notes]”; keep the original meaning.
+You are helping me read an academic paper for my MSc thesis.
+
+Task:
+1) First, write an overall summary of the paper in 150–250 words (plain English).
+2) Then, produce structured notes with sections 1–8 exactly as below.
+
+Sections (1–8):
+1) Citation (as given)
+2) One-sentence takeaway
+3) What they propose (simple)
+4) What they tested (datasets/tasks)
+5) Key evidence (beginner-level, 2–4 bullets)
+6) Cost / practicality for an MSc
+7) How I can use this in my project (cross-dataset fake news detection)
+8) Risks / notes
+
+Constraints:
+- Use ONLY the text I paste below. Do not add outside facts.
+- If something is missing, write “Not mentioned”.
+- Use short bullet points for sections 3–8.
+- If you make an inference, clearly label it as “Inference”.
+- Keep wording simple and clear.
+
 

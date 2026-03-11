@@ -1,4 +1,4 @@
-[# Clean Notes (Explainable)
+# Clean Notes (Explainable)
 
 ## What I understand clearly
 

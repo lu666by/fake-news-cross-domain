@@ -11,7 +11,7 @@ Over the past two weeks I focused on moving from planning to implementation.
 
 1. **Repository organisation and tracking**
    - Maintained a single tracker table in `tracking.md` to record task status and evidence links.
-   - `plans/` and `progress/` files now contain only short contextual notes and point to `tracking.md` for the current status.
+   - `plans/` and `progress/` files now contain short contextual notes and point to `tracking.md` for the current status.
 
 2. **Initial LIAR dataset implementation**
    - Implemented `notebooks/01_liar_load.ipynb` to load and inspect the LIAR dataset.
@@ -22,7 +22,7 @@ Over the past two weeks I focused on moving from planning to implementation.
 
 3. **TF-IDF baseline experiment**
    - Implemented `notebooks/02_tfidf_baseline.ipynb`.
-   - Model: **TF-IDF + Logistic Regression** (with optional Linear SVM).
+   - Model: **TF-IDF + Logistic Regression**.
    - Evaluation metrics include:
      - Accuracy
      - Macro-F1
@@ -34,8 +34,8 @@ Over the past two weeks I focused on moving from planning to implementation.
 
    The baseline achieved approximately:
 
-   - Accuracy ≈ **0.62**
-   - Macro-F1 ≈ **0.59**
+   - **Accuracy ≈ 0.62**
+   - **Macro-F1 ≈ 0.59**
 
 4. **Clean research notes**
    - Updated `notes/clean_notes.md`.
@@ -48,7 +48,7 @@ Over the past two weeks I focused on moving from planning to implementation.
 
 ### Key takeaways so far (high level)
 
-- Cross-dataset evaluation can be viewed as performance under **natural distribution shift (OOD)**.
+- Cross-dataset evaluation can be viewed as performance under **natural distribution shift (out-of-distribution / OOD)**.
 - The **LIAR dataset** contains short political claims with **six truthfulness labels**, which differs substantially from news-style datasets that typically use **binary labels**.
 - A simple TF-IDF baseline provides a useful reference point before moving to stronger models.
 
@@ -60,7 +60,7 @@ Over the past two weeks I focused on moving from planning to implementation.
 
 - What it means: LIAR has 6 labels, while many news datasets use binary labels (real/fake).
 - Why it matters: cross-dataset experiments require a consistent label space.
-- Next step: define and test a binary label mapping when preparing cross-dataset evaluation.
+- Next step: define and document a binary label mapping when preparing cross-dataset evaluation.
 
 **Model robustness across datasets**
 
@@ -76,8 +76,8 @@ The next implementation steps are:
 
 1. Implement a **stronger baseline model** (e.g., BERT-based classifier).
 2. Prepare the pipeline for **cross-dataset evaluation**.
-3. Extend experiments beyond LIAR in-domain results.
+3. Compare **in-domain vs cross-dataset performance drop**.
 
-Dates and status updates are tracked in:
+Dates and detailed task status are tracked in:
 
 `tracking.md`

@@ -1,4 +1,4 @@
-# Clean Notes (Explainable)
+[# Clean Notes (Explainable)
 
 ## What I understand clearly
 
@@ -166,3 +166,4 @@ After completing the LIAR baseline experiment:
 2. Implement a stronger baseline model (e.g., BERT).
 3. Prepare datasets for cross-dataset evaluation.
 4. Compare performance drop between in-domain and cross-datase
+](https://github.com/lu666by/fake-news-cross-domain/tree/week_liar_setup)

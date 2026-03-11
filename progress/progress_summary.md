@@ -1,45 +1,83 @@
 # Progress Summary (living document)
 
-> Note (for supervisor): The up-to-date plan + progress tracker is in `tracking.md` (single source of truth).
-> This file provides brief narrative context only.
+> Note (for supervisor): The up-to-date plan + progress tracker is maintained in `tracking.md` (single source of truth).  
+> This file provides short narrative context only.
 
-## Latest update: 2026-02-27 (Ireland time)
+## Latest update: 2026-03-12 (Ireland time)
 
 ### What I have achieved
-- Updated paper reviews to improve transparency:
-  - Added an **“LLM Prompt(s)”** section to each paper review (with the exact prompts used).
-  - Evidence examples:
-    - `papers/summaries/gururangan2020_dapt.md`
-    - `papers/summaries/wang2017_liar.md`
-    - `papers/summaries/wang2022_robustness_survey.md`
-- Improved repo organisation for supervision:
-  - Maintained a single tracker table in `tracking.md` with status + evidence links.
-  - Updated `plans/` and `progress/` to point to `tracking.md` as the main tracker.
-- Current constraint:
-  - I will travel back to Ireland on **2026-03-04** and have family medical appointments before that, so implementation tasks are scheduled to start from **2026-03-05**.
+
+Over the past two weeks I focused on moving from planning to implementation.
+
+1. **Repository organisation and tracking**
+   - Maintained a single tracker table in `tracking.md` to record task status and evidence links.
+   - `plans/` and `progress/` files now contain only short contextual notes and point to `tracking.md` for the current status.
+
+2. **Initial LIAR dataset implementation**
+   - Implemented `notebooks/01_liar_load.ipynb` to load and inspect the LIAR dataset.
+   - The notebook loads the `train`, `valid`, and `test` splits and prints:
+     - dataset shapes
+     - label distribution
+     - example statements
+
+3. **TF-IDF baseline experiment**
+   - Implemented `notebooks/02_tfidf_baseline.ipynb`.
+   - Model: **TF-IDF + Logistic Regression** (with optional Linear SVM).
+   - Evaluation metrics include:
+     - Accuracy
+     - Macro-F1
+     - Confusion Matrix.
+
+   Results are recorded in:
+
+   `results/liar_baseline.md`
+
+   The baseline achieved approximately:
+
+   - Accuracy ≈ **0.62**
+   - Macro-F1 ≈ **0.59**
+
+4. **Clean research notes**
+   - Updated `notes/clean_notes.md`.
+   - Applied the **3-sentence test** for each item:
+     - What it means
+     - Why it matters
+     - Next step
+
+---
 
 ### Key takeaways so far (high level)
-- Cross-dataset evaluation can be treated as performance under **natural distribution shift (OOD)**.
-- LIAR is **short claim-level text** with **6-level truth labels**, which can mismatch with other datasets that are **news-style text** and often **binary labels**.
-- Domain/task-adaptive pretraining (DAPT/TAPT) is a clear idea for reducing domain mismatch, but it must be tested carefully and cheaply (TAPT first).
 
-### Open questions / risks (only items I can explain)
-- **Label mapping (only needed for cross-dataset):**
-  - What it means: LIAR has 6 labels; FakeNewsNet-like datasets are often binary (real/fake).
-  - Why it matters: cross-dataset evaluation requires a consistent label space.
-  - Next step: run LIAR **in-domain** baseline first; then define and test a binary mapping for cross-dataset experiments.
-- **Scope control:**
-  - Risk: spending too long on reading without implementation.
-  - Next step: prioritise LIAR load + TF-IDF baseline + clear metrics first.
-- **If adaptation is tested (DAPT/TAPT):**
-  - Risk: data leakage if adapting on target **test** text.
-  - Next step: only use target **training** text (unlabeled) or external unlabeled corpora; keep runs small.
+- Cross-dataset evaluation can be viewed as performance under **natural distribution shift (OOD)**.
+- The **LIAR dataset** contains short political claims with **six truthfulness labels**, which differs substantially from news-style datasets that typically use **binary labels**.
+- A simple TF-IDF baseline provides a useful reference point before moving to stronger models.
 
-### Next actions (implementation-first; see `tracking.md` for dates/status)
-- Finalise Task 2 (single tracker): ensure `tracking.md` is the only place for status tracking; keep plans/progress as short background pointers.
-- Start coding with LIAR:
-  - `notebooks/01_liar_load.ipynb` (load + inspect train/valid/test; shapes; label counts; 3 samples)
-  - `notebooks/02_tfidf_baseline.ipynb` (TF-IDF + LR/SVM; report Accuracy + Macro-F1 + Confusion Matrix)
-  - Record results in `results/liar_baseline.md`
-- Clean notes:
-  - Create/update `notes/clean_notes.md` and keep only explainable notes/questions (3-sentence test).
+---
+
+### Open questions / risks (only items I can clearly explain)
+
+**Label mapping for cross-dataset experiments**
+
+- What it means: LIAR has 6 labels, while many news datasets use binary labels (real/fake).
+- Why it matters: cross-dataset experiments require a consistent label space.
+- Next step: define and test a binary label mapping when preparing cross-dataset evaluation.
+
+**Model robustness across datasets**
+
+- What it means: models trained on one dataset may not generalise well to another dataset.
+- Why it matters: this is central to the dissertation research question.
+- Next step: after establishing in-domain baselines, test cross-dataset transfer.
+
+---
+
+### Next actions (implementation focus)
+
+The next implementation steps are:
+
+1. Implement a **stronger baseline model** (e.g., BERT-based classifier).
+2. Prepare the pipeline for **cross-dataset evaluation**.
+3. Extend experiments beyond LIAR in-domain results.
+
+Dates and status updates are tracked in:
+
+`tracking.md`

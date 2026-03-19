@@ -1,147 +1,208 @@
-# Plan (Next 2 Weeks) — Implementation-focused (Ireland time / GMT)
+# Plan (Next 2 Weeks) — Baseline Improvement Focused (Ireland time / GMT)
 
-> Note (for supervisor): The up-to-date plan and completion status are maintained in `tracking.md` (single source of truth).  
-> This file provides background planning context only.
+> Note (for supervisor): The up-to-date task status and evidence links are maintained in `tracking.md` (single source of truth).  
+> This file provides planning context only.
 
 ---
 
 ## Context
-- I returned to Ireland on **2026-03-04**.
-- Due to family medical appointments during that week, implementation work was scheduled to begin from **2026-03-05**.
+
+After the supervisor meeting on **2026-03-19**, the priority of the project has been updated.
+
+The current LIAR baseline (**Version 1**) has already been completed, but the result is still relatively low and needs further investigation before moving on to stronger models such as BERT.
+
+So, the next stage is not to move directly to a new model, but to first improve the traditional LIAR baseline and explain the reasons for the current performance.
 
 ---
 
-## Goals (deliverables)
+## Current Baseline Status
 
-By **2026-03-12**, the following implementation milestones should be completed:
+Completed work so far:
 
-1. **Project tracking structure**
-   - `tracking.md` used as the single place that records task status and evidence links.
+- `notebooks/01_liar_load.ipynb`
+  - LIAR train / valid / test splits loaded and inspected
+- `notebooks/02_tfidf_baseline.ipynb`
+  - TF-IDF + Logistic Regression baseline implemented
+- `results/liar_baseline.md`
+  - initial evaluation metrics recorded
 
-2. **Initial LIAR dataset experiments**
-   - `notebooks/01_liar_load.ipynb`  
-     Load and inspect the LIAR dataset.
+Current Version 1 result:
 
-   - `notebooks/02_tfidf_baseline.ipynb`  
-     Run a TF-IDF baseline experiment.
+- Task: binary classification
+- Text field: `statement`
+- Accuracy: `0.6196`
+- Macro-F1: `0.5935`
 
-   - `results/liar_baseline.md`  
-     Record evaluation metrics (Accuracy, Macro-F1, Confusion Matrix).
+Current binary mapping used in this project:
 
-3. **Clean research notes**
-   - `notes/clean_notes.md`
-   - Ensure each note or question can be clearly explained.
+- REAL (0): `true`, `mostly-true`, `half-true`
+- FAKE (1): `barely-true`, `false`, `pants-fire`
 
 ---
 
-# Week 1 (2026-03-05 to 2026-03-08)
+## Main Goal for the Next 2 Weeks
 
-## Day 1 (2026-03-05)
-**Task:** Finalise single-entry tracking setup
+Improve the LIAR TF-IDF baseline and explain why Version 1 produced relatively low results.
+
+This includes:
+
+1. comparing Version 1 with the literature
+2. improving preprocessing
+3. checking TF-IDF parameter choices
+4. using the validation split properly
+5. updating the repository so that it clearly reflects the user's own working notebooks and results
+
+---
+
+# Week 1 (2026-03-19 to 2026-03-25)
+
+## Task 1: Compare Version 1 with the literature
+
+**Goal:** understand whether the current result is below typical LIAR baseline performance.
 
 **Outputs:**
-- Ensure `tracking.md` is the only file that records task status.
-- Add short pointer notes at the top of:
-  - `plans/plan_next_2_weeks.md`
+- find 2–3 papers or strong baseline references using LIAR
+- record for each one:
+  - task setting
+  - label setting
+  - model
+  - reported metrics
+- write a short comparison note in:
+  - `results/liar_baseline.md`
+  - or `progress/progress_summary.md`
+
+**Reason:**
+This helps explain how far the current Version 1 result is from existing work and gives a clearer target for improvement.
+
+---
+
+## Task 2: Improve preprocessing for the traditional baseline
+
+**Goal:** test whether stronger preprocessing improves performance.
+
+**Changes to compare:**
+- basic cleanup
+- lowercasing
+- stopword removal
+- stemming or lemmatization
+
+**Outputs:**
+- update `notebooks/02_tfidf_baseline.ipynb`
+- compare preprocessing settings on `valid.tsv`
+- record the comparison results in `results/liar_baseline.md`
+
+**Reason:**
+The supervisor noted that Version 1 preprocessing was too limited for a traditional method such as TF-IDF + Logistic Regression.
+
+---
+
+## Task 3: Use the validation split properly
+
+**Goal:** make model selection more systematic.
+
+**Outputs:**
+- use `train.tsv` for training
+- use `valid.tsv` to compare candidate settings
+- keep `test.tsv` for final evaluation only
+
+**Reason:**
+The supervisor specifically pointed out that Version 1 did not make proper use of the validation split.
+
+---
+
+## Task 4: Check TF-IDF parameter choices
+
+**Goal:** understand and justify the feature settings used in the baseline.
+
+**Parameters to review:**
+- `ngram_range`
+- `min_df`
+- `max_df`
+
+**Outputs:**
+- test several reasonable TF-IDF settings in `notebooks/02_tfidf_baseline.ipynb`
+- write short notes explaining:
+  - what each parameter means
+  - why it matters
+  - what effect it has on the features and results
+
+**Reason:**
+The supervisor asked for a clearer explanation of these choices and whether they may be contributing to the low result.
+
+---
+
+# Week 2 (2026-03-26 to 2026-04-01)
+
+## Task 5: Finalise LIAR baseline Version 2
+
+**Goal:** produce an improved and better justified baseline.
+
+**Outputs:**
+- select the best preprocessing + TF-IDF setup using validation results
+- retrain using the selected setup
+- evaluate once on the test split
+- record:
+  - Accuracy
+  - Macro-F1
+  - confusion matrix
+  - classification report
+- compare Version 2 with Version 1
+
+Files:
+- `notebooks/02_tfidf_baseline.ipynb`
+- `results/liar_baseline.md`
+
+---
+
+## Task 6: Update repository structure and consistency
+
+**Goal:** make the repository easier for the supervisor to read and ensure that it reflects the user's real work.
+
+**Outputs:**
+- ensure the notebooks in `notebooks/` are the user's own working versions
+- keep external GitHub repositories only as implementation references
+- list external references in `README.md`
+- update:
+  - `tracking.md`
   - `progress/progress_summary.md`
+  - `results/liar_baseline.md`
+
+**Reason:**
+The supervisor noted that the repository should primarily show the user's own notebook versions, not just external GitHub code.
 
 ---
 
-## Day 2 (2026-03-06)
+## Task 7: Prepare the next supervisor update
 
-**Task:** Clean research notes
+**Goal:** be ready to explain the progress clearly at the next meeting.
+
+**Prepare to report:**
+- what Version 1 did
+- why Version 1 was relatively low
+- what was changed in Version 2
+- whether the improved result is closer to the literature
+- what should come next after the improved baseline
 
 **Outputs:**
-- Create/update `notes/clean_notes.md`
-- Apply the **3-sentence test** to each item:
-
-1. What it means  
-2. Why it matters  
-3. Next step
-
-Notes that cannot be clearly explained are removed or rewritten.
+- short written summary in `progress/progress_summary.md`
+- updated evidence links in `tracking.md`
 
 ---
 
-## Day 3–Day 4 (2026-03-07 to 2026-03-08)
+## Expected Deliverables by the End of This Period
 
-**Task:** Begin LIAR dataset implementation
+By the end of this two-week period, the project should have:
 
-**Outputs:**
-
-`notebooks/01_liar_load.ipynb`
-
-The notebook performs:
-
-- loading `train.tsv`, `valid.tsv`, `test.tsv`
-- printing dataset shapes
-- showing label distribution
-- printing several example statements
-
-This step confirms that the dataset is correctly prepared for later experiments.
+1. a completed LIAR baseline Version 2
+2. a Version 1 vs Version 2 comparison
+3. a short literature comparison for LIAR baseline results
+4. clearer justification for preprocessing and TF-IDF parameters
+5. a cleaner repository that shows the user's own notebook workflow more clearly
 
 ---
 
-# Week 2 (2026-03-08 to 2026-03-12)
+## Notes on Scope
 
-## Day 5–Day 7 (2026-03-08 to 2026-03-10)
+During this period, the main focus is still the LIAR baseline improvement stage.
 
-**Task:** Implement TF-IDF baseline experiment (LIAR in-domain)
-
-**Outputs:**
-
-`notebooks/02_tfidf_baseline.ipynb`
-
-The notebook includes:
-
-- TF-IDF text representation
-- Logistic Regression classifier  
-- optional comparison with Linear SVM
-
-Evaluation metrics:
-
-- Accuracy
-- Macro-F1
-- Confusion Matrix
-
-Results are recorded in:
-
-`results/liar_baseline.md`
-
----
-
-## Day 8–Day 9 (2026-03-11 to 2026-03-12)
-
-**Task:** Review and polish project materials
-
-**Outputs:**
-
-1. Update `tracking.md`
-   - ensure task status is accurate
-   - ensure evidence links are correct
-
-2. Review `notes/clean_notes.md`
-   - confirm that each note is clearly explainable
-
-3. Write a short update in `progress/progress_summary.md`
-   (1–2 paragraphs)
-
-The update should summarise:
-
-- what was completed
-- what the next steps will be
-
----
-
-## Literature reading (lightweight)
-
-Literature reading will be kept minimal during this implementation period.
-
-New paper summaries will only be added if they directly support the implementation tasks.
-
-If a new summary is added:
-
-- include an **"LLM Prompt(s)" section**
-- save the file under:
-
-`papers/summaries/`
+Work on stronger baselines such as BERT, or later cross-dataset experiments, should begin only after the traditional baseline is improved and the current low result is better understood.

@@ -94,3 +94,31 @@ The next baseline improvement stage will compare:
 * `LinearSVC`
 
 This will help determine whether the remaining weakness is mainly due to class handling or classifier choice before moving to stronger models such as BERT.
+
+## 8.1 Why analysis
+
+### Why analysis
+
+#### 1) Why did TF-IDF tuning help?
+
+The TF-IDF comparison suggests that moderate feature filtering helped the LIAR binary baseline, although the effect was relatively small. In the validation experiments, the best selected setting was **E6** (`ngram_range=(1,2)`, `min_df=2`, `max_df=1.0`), which achieved the strongest validation **Macro-F1**. By contrast, **E5** (`min_df=1`) achieved slightly higher validation Accuracy, but a lower Macro-F1, so it was not selected under the current model selection rule.
+
+A likely explanation is that increasing `min_df` from `1` to `2` removed some very rare terms and rare bigrams that appeared in only one training document. In a short-text dataset such as LIAR, these extremely rare features are more likely to reflect accidental wording or dataset-specific noise than stable class-discriminative patterns. Removing them can make the feature space less sparse and help Logistic Regression learn more reliable weights, especially across both classes rather than mainly improving majority-style predictions.
+
+At the same time, increasing `min_df` too much did not help. When `min_df` was increased further to `5` (**E8**), performance dropped slightly. This suggests that some low-frequency terms still carry useful information for distinguishing REAL from FAKE claims, and removing too many of them weakens the representation.
+
+The comparison between **E6** and **E7** is also informative. These two settings produced identical validation results, even though `max_df` changed from `1.0` to `0.95`. This suggests that removing very high-frequency terms was not the main factor behind improvement in this run. In other words, the main gain seems to come more from filtering out very rare noisy features than from filtering out very common ones.
+
+Overall, the TF-IDF results suggest that the best setting is a compromise: keep enough lexical detail to preserve useful cues, but remove the rarest features that are likely to add noise rather than signal.
+
+#### 2) Why did minimal preprocessing perform better?
+
+The preprocessing comparison gave a slightly counter-intuitive result. In many traditional text classification tasks, stronger preprocessing is expected to help. However, in the current LIAR binary setup, **minimal preprocessing (`P0_minimal`) and simple lowercasing (`P1_lower`) gave the same validation result**, while stronger preprocessing with stopword removal and stemming performed worse.
+
+A likely explanation is that LIAR consists of **short political statements**, where each word contributes proportionally more information than it would in longer documents. Because the statements are short, aggressive preprocessing may remove or distort useful lexical cues too early. For example, stopword removal can delete function words that contribute to tone, emphasis, negation, or rhetorical structure. Even when such words are not individually strong features, in short claims they may still help preserve the original phrasing pattern.
+
+Stemming may also reduce discriminative information. By collapsing different surface forms into the same stem, it can blur subtle differences in meaning, register, or factual framing. In a dataset such as LIAR, where the task is to classify brief and sometimes ambiguous claims, these small wording differences may still matter. Once those details are removed, the model may lose cues that help separate REAL and FAKE statements.
+
+The current results are consistent with that interpretation. Lowercasing alone did not damage performance, which suggests that case information is not especially important here. However, once stopword removal and stemming were added, validation performance decreased. This indicates that the problem is not preprocessing in general, but rather that **stronger preprocessing removes useful information from already short texts**.
+
+Overall, the results suggest that for LIAR, preserving the original wording is more helpful than aggressively normalising it. This is one reason why a relatively simple preprocessing setup performed best in the current baseline.

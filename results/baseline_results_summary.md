@@ -94,5 +94,3 @@ The next baseline improvement stage will compare:
 * `LinearSVC`
 
 This will help determine whether the remaining weakness is mainly due to class handling or classifier choice before moving to stronger models such as BERT.
-
-````

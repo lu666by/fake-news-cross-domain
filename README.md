@@ -1,106 +1,58 @@
-# MSc Project — Cross-dataset Generalisation for Fake News Detection
+# Notebooks
 
-**Supervisor:** Dr. Josephine Griffith  
-**Student:** Boyu Lu
+This folder contains the main experiment notebooks used in this MSc dissertation project.
 
----
+The notebooks here are the **user’s own working versions** and form the main record of:
 
-## Project overview
+- dataset loading and inspection,
+- sparse baseline experiments,
+- transformer baseline experiments,
+- and later model comparison updates.
 
-This project studies **cross-dataset generalisation for fake news / misinformation detection**, focusing on how performance changes under dataset shift across benchmark datasets such as **LIAR** and **FakeNewsNet**.
+## Contents
 
-The overall goal is to understand how well models trained on one dataset transfer to another, what causes performance drop under distribution shift, and whether lightweight adaptation strategies can help reduce that drop.
+- `01_liar_load.ipynb`  
+  Load and inspect the LIAR dataset, including split sizes, binary label distribution, example statements, example contexts, and simple text statistics.
 
----
+- `02_tfidf_baseline.ipynb`  
+  Run the LIAR **TF-IDF + Logistic Regression** baseline, compare validation settings, and record the final sparse baseline result.
 
-## Current project stage
+- `03_bert_baseline.ipynb`  
+  Run the LIAR **BERT-base** baseline for binary classification.
 
-The project is currently in the **baseline development and improvement stage**.
+- `04_bert_weighted_baseline.ipynb`  
+  Run the LIAR **BERT-base + weighted loss** baseline, which is currently the main class-balanced model.
 
-At this stage, the priority is to:
+- `05_roberta_baseline.ipynb`  
+  Run the LIAR **RoBERTa-base** baseline as a stronger transformer comparison model.
 
-- establish a clear in-domain baseline on **LIAR**
-- improve and better justify the traditional baseline
-- compare results with previous work
-- prepare for later cross-dataset experiments
+## Recommended reading order
 
-The current focus is **not** to move directly to stronger models, but to first improve the LIAR baseline and explain the current performance.
+For reading or supervisor review, the recommended notebook order is:
 
----
+`01 -> 02 -> 03 -> 04 -> 05`
 
-## Research Questions (draft)
+This order reflects the actual development path of the project:
 
-- **RQ1:** How much does performance drop when training on Dataset A and testing on Dataset B?
-- **RQ2:** What dataset differences (text style, label definition, topic/source) explain the drop?
-- **RQ3:** Can lightweight adaptation (e.g., continued pretraining on target unlabeled text) reduce the drop?
+1. data loading and inspection,
+2. traditional sparse baseline,
+3. unweighted transformer baseline,
+4. weighted transformer improvement,
+5. stronger transformer comparison.
 
----
+## Current status
 
-## Datasets (draft)
+At the current stage of the project:
 
-- **LIAR**
-- **FakeNewsNet**
+- the **TF-IDF** notebook provides the main traditional baseline,
+- the **BERT** notebook provides the main unweighted neural baseline,
+- the **weighted BERT** notebook provides the current **primary model**,
+- the **RoBERTa** notebook provides an important comparison model.
 
----
+## Important note
 
-## Repository structure
+External GitHub repositories were used only as **implementation references**.
 
-- `tracking.md`  
-  Main project tracker. This is the **single source of truth** for current task status and evidence links.
+They do **not** replace the notebooks in this folder, which remain the primary record of the user’s own implementation and experiments.
 
-- `plans/plan_next_2_weeks.md`  
-  Short-term planning context.
-
-- `progress/progress_summary.md`  
-  Short narrative summary of progress.
-
-- `notes/clean_notes.md`  
-  Explainable research notes, decisions, and open questions.
-
-- `notebooks/`  
-  Experiment notebooks used in this project.
-
-  - `01_liar_load.ipynb` — load and inspect the LIAR dataset
-  - `02_tfidf_baseline.ipynb` — LIAR TF-IDF baseline experiments
-
-- `results/`  
-  Experiment outputs and evaluation results.
-
-  - `liar_baseline.md` — LIAR baseline results and comparisons
-
-- `papers/reading_list.md`  
-  Literature reading list.
-
-- `papers/summaries/`  
-  One-page summaries of selected papers.
-
----
-
-## Working principles
-
-- `tracking.md` is the main place for task status and evidence.
-- `plans/` and `progress/` provide context, but do not replace `tracking.md`.
-- Experimental results should be recorded clearly in `results/`.
-- Notes should remain explainable and concise.
-
----
-
-## Update rule (for myself)
-
-- Every paper read → add it to `reading_list.md` and create a summary in `papers/summaries/`
-- Every few days → update `progress/progress_summary.md`
-- Every week → refresh `plans/` with dates and deliverables
-- After each meaningful experiment update → record results in `results/`
-
----
-
-## Implementation References
-
-Some implementation ideas were informed by publicly available repositories related to fake news detection and the LIAR dataset:
-
-- `https://github.com/tomtuamnuq/LIAR-Detect-Fake-News-Statement-Classification`
-- `https://github.com/moscatena/Fake-News-Classification`
-
-These repositories were used only as **implementation references**.
-
-The notebooks in this repository are the **user’s own working versions** written specifically for this dissertation workflow.
+External reference links should be listed in the project-level `README.md`.

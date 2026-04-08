@@ -1,17 +1,30 @@
-# Plan (Next 2 Weeks) — Baseline Improvement Focused (Ireland time / GMT)
+# Plan (Next 2 Weeks) — Post-Baseline Consolidation Focused (Ireland time)
 
-> Note (for supervisor): The up-to-date task status and evidence links are maintained in `tracking.md` (single source of truth).  
+> Note (for supervisor): the up-to-date task status and evidence links are maintained in `tracking.md` as the single source of truth.  
 > This file provides planning context only.
 
 ---
 
 ## Context
 
-After the supervisor meeting on **2026-03-19**, the priority of the project has been updated.
+The project has now moved beyond the traditional sparse-baseline stage.
 
-The current LIAR baseline (**Version 1**) has already been completed, but the result is still relatively low and needs further investigation before moving on to stronger models such as BERT.
+The LIAR in-domain binary baseline line is now established across several models:
 
-So, the next stage is not to move directly to a new model, but to first improve the traditional LIAR baseline and explain the reasons for the current performance.
+- **TF-IDF + Logistic Regression**
+- **BERT-base**
+- **BERT-base + weighted loss**
+- **RoBERTa-base**
+
+At the current stage, the strongest main model is **weighted BERT**, because it gives the best average **Macro-F1** and the best overall class-balanced performance among the tested baselines.
+
+This means the main priority for the next two weeks is **no longer** to keep tuning the traditional baseline.  
+Instead, the focus should now shift to:
+
+1. consolidating the current baseline results,
+2. expanding the literature review,
+3. writing error analysis,
+4. preparing the next-stage **cross-dataset / cross-domain** pipeline.
 
 ---
 
@@ -21,171 +34,188 @@ Completed work so far:
 
 - `notebooks/01_liar_load.ipynb`
   - LIAR train / valid / test splits loaded and inspected
+
 - `notebooks/02_tfidf_baseline.ipynb`
-  - TF-IDF + Logistic Regression baseline implemented
-- `results/liar_baseline.md`
-  - initial evaluation metrics recorded
+  - TF-IDF + Logistic Regression sparse baseline completed
 
-Current Version 1 result:
+- `notebooks/03_bert_baseline.ipynb`
+  - unweighted BERT baseline completed on GPU
 
-- Task: binary classification
-- Text field: `statement`
-- Accuracy: `0.6196`
-- Macro-F1: `0.5935`
+- `notebooks/04_bert_weighted_baseline.ipynb`
+  - weighted-loss BERT baseline completed
 
-Current binary mapping used in this project:
+- `notebooks/05_roberta_baseline.ipynb`
+  - RoBERTa baseline completed
 
-- REAL (0): `true`, `mostly-true`, `half-true`
-- FAKE (1): `barely-true`, `false`, `pants-fire`
+Main current results:
+
+- **TF-IDF + Logistic Regression**
+  - Accuracy: `0.6235`
+  - Macro-F1: `0.6005`
+
+- **BERT-base (3-seed mean)**
+  - Accuracy: `0.6369 ± 0.0028`
+  - Macro-F1: `0.6169 ± 0.0054`
+
+- **BERT-base + weighted loss (3-seed mean)**
+  - Accuracy: `0.6404 ± 0.0078`
+  - Macro-F1: `0.6304 ± 0.0081`
+
+- **RoBERTa-base (single run)**
+  - Accuracy: `0.6504`
+  - Macro-F1: `0.6262`
+
+Current main model:
+- **weighted BERT**
+
+Reason:
+- best mean Macro-F1 among tested baselines
+- better FAKE recall than unweighted BERT and RoBERTa
+- more suitable for class-balanced fake news detection than accuracy-only selection
 
 ---
 
 ## Main Goal for the Next 2 Weeks
 
-Improve the LIAR TF-IDF baseline and explain why Version 1 produced relatively low results.
+Use the current LIAR baseline results as a stable foundation and shift the project toward thesis-ready analysis and next-stage design.
 
 This includes:
 
-1. comparing Version 1 with the literature
-2. improving preprocessing
-3. checking TF-IDF parameter choices
-4. using the validation split properly
-5. updating the repository so that it clearly reflects the user's own working notebooks and results
+1. finalising and synchronising the current result documentation,
+2. expanding the literature review beyond the current small set of papers,
+3. writing error analysis for the weighted BERT model,
+4. preparing the cross-dataset / cross-domain pipeline,
+5. keeping extra model experiments optional rather than central.
 
 ---
 
-# Week 1 (2026-03-19 to 2026-03-25)
+# Week 1 (2026-04-09 to 2026-04-15)
 
-## Task 1: Compare Version 1 with the literature
+## Task 1: Finalise baseline documentation across the repository
 
-**Goal:** understand whether the current result is below typical LIAR baseline performance.
+**Goal:** make the repository internally consistent and clearly reflect the current main conclusion.
 
-**Outputs:**
-- find 2–3 papers or strong baseline references using LIAR
-- record for each one:
-  - task setting
-  - label setting
-  - model
-  - reported metrics
-- write a short comparison note in:
-  - `results/liar_baseline.md`
-  - or `progress/progress_summary.md`
-
-**Reason:**
-This helps explain how far the current Version 1 result is from existing work and gives a clearer target for improvement.
-
----
-
-## Task 2: Improve preprocessing for the traditional baseline
-
-**Goal:** test whether stronger preprocessing improves performance.
-
-**Changes to compare:**
-- basic cleanup
-- lowercasing
-- stopword removal
-- stemming or lemmatization
-
-**Outputs:**
-- update `notebooks/02_tfidf_baseline.ipynb`
-- compare preprocessing settings on `valid.tsv`
-- record the comparison results in `results/liar_baseline.md`
-
-**Reason:**
-The supervisor noted that Version 1 preprocessing was too limited for a traditional method such as TF-IDF + Logistic Regression.
-
----
-
-## Task 3: Use the validation split properly
-
-**Goal:** make model selection more systematic.
-
-**Outputs:**
-- use `train.tsv` for training
-- use `valid.tsv` to compare candidate settings
-- keep `test.tsv` for final evaluation only
-
-**Reason:**
-The supervisor specifically pointed out that Version 1 did not make proper use of the validation split.
-
----
-
-## Task 4: Check TF-IDF parameter choices
-
-**Goal:** understand and justify the feature settings used in the baseline.
-
-**Parameters to review:**
-- `ngram_range`
-- `min_df`
-- `max_df`
-
-**Outputs:**
-- test several reasonable TF-IDF settings in `notebooks/02_tfidf_baseline.ipynb`
-- write short notes explaining:
-  - what each parameter means
-  - why it matters
-  - what effect it has on the features and results
-
-**Reason:**
-The supervisor asked for a clearer explanation of these choices and whether they may be contributing to the low result.
-
----
-
-# Week 2 (2026-03-26 to 2026-04-01)
-
-## Task 5: Finalise LIAR baseline Version 2
-
-**Goal:** produce an improved and better justified baseline.
-
-**Outputs:**
-- select the best preprocessing + TF-IDF setup using validation results
-- retrain using the selected setup
-- evaluate once on the test split
-- record:
-  - Accuracy
-  - Macro-F1
-  - confusion matrix
-  - classification report
-- compare Version 2 with Version 1
-
-Files:
-- `notebooks/02_tfidf_baseline.ipynb`
+**Files to synchronise:**
+- `results/baseline_results_summary.md`
 - `results/liar_baseline.md`
-
----
-
-## Task 6: Update repository structure and consistency
-
-**Goal:** make the repository easier for the supervisor to read and ensure that it reflects the user's real work.
+- `progress/progress_summary.md`
+- `tracking.md`
+- `notebooks/README.md`
+- root `README.md`
 
 **Outputs:**
-- ensure the notebooks in `notebooks/` are the user's own working versions
-- keep external GitHub repositories only as implementation references
-- list external references in `README.md`
-- update:
-  - `tracking.md`
-  - `progress/progress_summary.md`
-  - `results/liar_baseline.md`
+- all files updated to reflect:
+  - TF-IDF baseline completed
+  - BERT baseline completed
+  - weighted BERT as the current primary model
+  - RoBERTa as a comparison model
+- remove outdated “next step” language that still treats LinearSVC or sparse-model tuning as the main direction
 
 **Reason:**
-The supervisor noted that the repository should primarily show the user's own notebook versions, not just external GitHub code.
+The experimental line has progressed much faster than the written project record.  
+This now needs to be cleaned up so the repository is readable for the supervisor and usable for dissertation writing.
 
 ---
 
-## Task 7: Prepare the next supervisor update
+## Task 2: Expand the literature review
 
-**Goal:** be ready to explain the progress clearly at the next meeting.
-
-**Prepare to report:**
-- what Version 1 did
-- why Version 1 was relatively low
-- what was changed in Version 2
-- whether the improved result is closer to the literature
-- what should come next after the improved baseline
+**Goal:** strengthen the related-work section so it matches the current experimental progress.
 
 **Outputs:**
-- short written summary in `progress/progress_summary.md`
-- updated evidence links in `tracking.md`
+- extend `papers/reading_list.md`
+- add or finalise more paper summaries in `papers/summaries/`
+- make sure the literature review includes:
+  - LIAR dataset background
+  - transformer baselines for fake news detection
+  - model-choice justification for BERT / RoBERTa
+  - cross-dataset or generalisation discussion where relevant
+
+**Minimum target for this period:**
+- move beyond the current small set and build a more credible paper base for the thesis
+
+**Reason:**
+The supervisor explicitly noted that the literature review was still too limited.  
+Now that the model results are stronger, the literature review needs to catch up.
+
+---
+
+## Task 3: Write error analysis for weighted BERT
+
+**Goal:** move from raw performance numbers to interpretation.
+
+**Focus:**
+- false positives
+- false negatives
+- remaining FAKE-class errors
+- patterns in short statements that are still difficult for the model
+
+**Outputs:**
+- collect representative error examples from the test split
+- write short analysis notes that explain:
+  - what kinds of statements are still misclassified
+  - why FAKE recall improved relative to unweighted BERT
+  - why class balance is still not perfect
+
+**Files to update:**
+- `results/liar_baseline.md`
+- optionally `notes/clean_notes.md`
+
+**Reason:**
+The thesis needs explanation, not only metrics.  
+Weighted BERT is especially suitable for error analysis because its improvement is interpretable.
+
+---
+
+# Week 2 (2026-04-16 to 2026-04-22)
+
+## Task 4: Prepare the cross-dataset / cross-domain pipeline
+
+**Goal:** begin the next stage of the project after the LIAR in-domain baseline line.
+
+**Outputs:**
+- define the next experimental pipeline beyond LIAR in-domain evaluation
+- identify which dataset(s) will be used in the next stage
+- outline the intended train / validation / test logic for cross-dataset experiments
+- record the design clearly in:
+  - `tracking.md`
+  - `plans/plan_next_2_weeks.md`
+  - `progress/progress_summary.md`
+
+**Reason:**
+The supervisor previously indicated that stronger models should be established first, and the cross part should follow.  
+That condition is now satisfied, so the next planning step should begin.
+
+---
+
+## Task 5: Prepare supervisor-facing update files
+
+**Goal:** make the next supervisor update easy to read in advance.
+
+**Outputs:**
+- decide which files should be sent to the supervisor before the next meeting
+- make sure those files are clean and up to date
+- prioritise:
+  - `results/baseline_results_summary.md`
+  - `results/liar_baseline.md`
+  - `progress/progress_summary.md`
+  - `tracking.md`
+
+**Reason:**
+The supervisor asked to be told which files to review before the next meeting.
+
+---
+
+## Task 6: Keep additional model work optional
+
+**Goal:** avoid spending too much time on small extra variations unless they clearly add thesis value.
+
+**Optional experiments only if time allows:**
+- `RoBERTa + weighted loss`
+- `statement` vs `statement + context`
+
+**Reason:**
+The current main bottleneck is no longer whether the project has a strong enough baseline.  
+The bigger need now is analysis, literature coverage, and next-stage pipeline design.
 
 ---
 
@@ -193,16 +223,21 @@ The supervisor noted that the repository should primarily show the user's own no
 
 By the end of this two-week period, the project should have:
 
-1. a completed LIAR baseline Version 2
-2. a Version 1 vs Version 2 comparison
-3. a short literature comparison for LIAR baseline results
-4. clearer justification for preprocessing and TF-IDF parameters
-5. a cleaner repository that shows the user's own notebook workflow more clearly
+1. a fully synchronised repository record of the current LIAR baselines,
+2. a clearer and expanded literature review,
+3. a written error analysis for the weighted BERT model,
+4. an initial design for the cross-dataset / cross-domain stage,
+5. a clean set of files ready to share with the supervisor.
 
 ---
 
 ## Notes on Scope
 
-During this period, the main focus is still the LIAR baseline improvement stage.
+During this period, the main focus is **not** to keep pushing small model improvements.
 
-Work on stronger baselines such as BERT, or later cross-dataset experiments, should begin only after the traditional baseline is improved and the current low result is better understood.
+The main focus is to make the current results thesis-ready and to prepare the next research stage.
+
+Additional model experiments are allowed only if they clearly support one of these goals:
+- stronger interpretation,
+- stronger comparison,
+- or better preparation for the next-stage pipeline.

@@ -3,188 +3,193 @@
 > Note (for supervisor): the up-to-date task tracker is maintained in `tracking.md` as the single source of truth.  
 > This file provides short narrative context only.
 
-## Latest update: 2026-04-08 (Ireland time)
+## Latest update: 2026-04-12 (Ireland time)
 
-## What I have achieved
+## What I did this week
 
-Since the previous update, I have moved the project beyond the traditional sparse baseline stage and completed the first strong transformer baselines for the LIAR binary task.
+This week I focused on making the current transformer results more reliable and on testing the most direct follow-up ideas, rather than continuing broad model changes.
 
-### 1. Repository organisation and tracking
-- `tracking.md` remains the main place for task status and evidence links.
-- `plans/` and `progress/` files remain short and are used only for narrative context.
-- The baseline results have now been reorganised into clearer result summaries.
+### 1. Extended the unweighted BERT stability check
+- I extended the unweighted BERT baseline from **3 runs to 5 runs**.
+- The new 5-run mean is:
+  - **Test Accuracy:** `0.6425 ± 0.0095`
+  - **Test Macro-F1:** `0.6231 ± 0.0122`
 
-### 2. LIAR dataset loading and inspection
-- `notebooks/01_liar_load.ipynb` loads the LIAR `train`, `valid`, and `test` splits.
-- The notebook inspects:
-  - dataset shapes
-  - binary label distribution
-  - example statements
-  - example contexts
-  - simple text statistics
+Main point:
+- the BERT improvement over TF-IDF still holds,
+- but seed variance is real,
+- so reporting mean and standard deviation is more appropriate than relying on a single run.
 
-Current LIAR split sizes:
+### 2. Completed a more concrete error analysis
+- I completed an error analysis comparing representative **weighted BERT** and **weighted RoBERTa** checkpoints.
+- The analysis now identifies concrete recurring error types rather than only reporting class-wise metrics.
+
+Main patterns:
+- `numeric_claim`
+- `label_boundary_ambiguity`
+- `context_dependent`
+
+Main interpretation:
+- weighted BERT is more willing to predict **FAKE**, so it achieves stronger FAKE recall,
+- weighted RoBERTa appears more conservative and better calibrated overall.
+
+### 3. Tested statement-only vs statement + context
+- I ran a controlled comparison using the weighted RoBERTa setup, changing only the input text:
+  - `statement_only`
+  - `statement + [CTX] + context`
+
+Main result:
+- naive context concatenation did **not** improve performance.
+- It reduced:
+  - test accuracy
+  - test macro-F1
+  - FAKE recall
+
+Main interpretation:
+- in LIAR, the `context` field often behaves more like source or venue metadata than true factual background,
+- so directly concatenating it adds noise rather than useful evidence.
+
+### 4. Tested threshold tuning for weighted RoBERTa
+- I scanned decision thresholds on the validation set while keeping the same trained weighted RoBERTa model.
+- The validation macro-F1 optimum shifted to a more conservative threshold.
+
+Main result:
+- threshold tuning based on validation **macro-F1** did **not** improve test performance.
+- It reduced FAKE recall on the test set.
+
+Main interpretation:
+- simply tuning the threshold for macro-F1 does not automatically solve the conservative FAKE boundary problem,
+- and lower-threshold operating points may only be useful if the objective changes from macro-F1 to FAKE recall.
+
+---
+
+## Main findings this week
+
+- The unweighted BERT baseline is more stable when averaged over 5 runs than when reported from only 3 runs.
+- The current remaining difficulty is still concentrated in:
+  - numeric claims,
+  - narrow label boundaries,
+  - and missing context.
+- Naive context concatenation is **not** a useful next step for the current LIAR setup.
+- Macro-F1-based threshold tuning is also **not** a good direct fix for the current FAKE recall weakness.
+- This means the model line is now better understood, and the most obvious low-cost follow-up ideas have already been tested.
+
+---
+
+## Main current issue
+
+The current issue is no longer basic modelling setup.
+
+The main issue is now how to interpret the remaining performance gap and decide whether additional model work is still worthwhile.
+
+At this stage:
+- the gains from stronger models are real but moderate,
+- the task itself remains difficult because of label ambiguity and context dependence,
+- and further small model variations may have lower value than analysis, literature, and next-stage experiment design.
+
+---
+
+## Next step for next week
+
+The next priorities should now be:
+
+1. expand the literature review,
+2. write the current error analysis into a thesis-ready subsection,
+3. finalise the current model comparison more clearly in the repo files,
+4. begin planning the cross-dataset / cross-domain stage.
+
+Additional model work should now be treated as optional unless it clearly supports one of those goals.
+
+---
+
+## Project status to date (short)
+
+The project has now moved beyond the traditional sparse-baseline stage.
+
+### Dataset and task
+- Dataset: **LIAR**
+- Setting: **in-domain binary classification**
+- Input text: `statement`
+- Binary mapping:
+  - REAL (0): `true`, `mostly-true`, `half-true`
+  - FAKE (1): `barely-true`, `false`, `pants-fire`
+
+Split sizes:
 - Train: 10240
 - Valid: 1284
 - Test: 1267
 
-Binary mapping used in this project:
-- REAL (0): `true`, `mostly-true`, `half-true`
-- FAKE (1): `barely-true`, `false`, `pants-fire`
+### Baselines completed so far
 
-### 3. Traditional sparse baseline completed
-The TF-IDF + Logistic Regression baseline has now been completed and documented as the main traditional baseline.
-
-Final sparse baseline result:
-- Accuracy: 0.6235
-- Macro-F1: 0.6005
+#### 1. TF-IDF + Logistic Regression
+- Final sparse baseline:
+  - **Accuracy:** `0.6235`
+  - **Macro-F1:** `0.6005`
 
 Main observation:
-- the sparse baseline performs better on the REAL class than on the FAKE class
-- FAKE recall remains limited
+- better performance on **REAL** than on **FAKE**
+- limited FAKE recall
 
-### 4. Unweighted BERT baseline completed
-A BERT-base baseline was implemented and run successfully on GPU.
-
-Main result:
-- single run:
-  - Accuracy: 0.6401
-  - Macro-F1: 0.6231
-- 3-seed mean:
-  - Accuracy: 0.6369 ± 0.0028
-  - Macro-F1: 0.6169 ± 0.0054
+#### 2. Unweighted BERT
+- 5-run mean:
+  - **Accuracy:** `0.6425 ± 0.0095`
+  - **Macro-F1:** `0.6231 ± 0.0122`
 
 Main observation:
-- BERT consistently improves over TF-IDF
-- the improvement is stable across seeds
-- however, FAKE recall is still weaker than REAL recall
+- stable improvement over TF-IDF
+- but FAKE recall remains weaker than REAL recall
 
-### 5. Weighted BERT baseline completed
-A separate weighted-loss BERT experiment was created and evaluated across 3 random seeds.
-
-Weighted BERT 3-seed mean:
-- Accuracy: 0.6404 ± 0.0078
-- Macro-F1: 0.6304 ± 0.0081
-- REAL recall: 0.7129 ± 0.0194
-- FAKE recall: 0.5467 ± 0.0241
+#### 3. Weighted BERT
+- 3-run mean:
+  - **Accuracy:** `0.6404 ± 0.0078`
+  - **Macro-F1:** `0.6304 ± 0.0081`
+  - **REAL recall:** `0.7129 ± 0.0194`
+  - **FAKE recall:** `0.5467 ± 0.0241`
 
 Main observation:
-- weighted loss improves macro-F1 compared with unweighted BERT
+- weighted loss improves macro-F1
 - weighted loss improves FAKE recall
-- weighted BERT currently gives the best class-balanced result among the tested baselines
+- weighted BERT remains an important class-balanced model
 
-### 6. RoBERTa baseline completed
-A separate RoBERTa baseline was also run successfully.
+#### 4. RoBERTa line
+- RoBERTa baselines and follow-up checks have now been run as comparison models.
+- The recent follow-up analyses suggest:
+  - stronger overall calibrated performance in some settings,
+  - but not necessarily the strongest FAKE recall.
 
-RoBERTa single-run result:
-- Accuracy: 0.6504
-- Macro-F1: 0.6262
-
-Main observation:
-- RoBERTa gives the highest current single-run accuracy
-- however, it does not outperform weighted BERT on Macro-F1
-- it is currently treated as an important comparison model rather than the primary model
-
----
-
-## Key takeaways so far
-
-- The project has now moved beyond the traditional baseline-only stage.
-- Transformer baselines consistently outperform the TF-IDF baseline on LIAR binary classification.
-- The improvement from TF-IDF to BERT is stable but moderate rather than dramatic.
-- Class balance remains a central issue in the task.
-- Weighted loss is an effective and interpretable improvement because it improves FAKE recall and produces the strongest overall Macro-F1.
-- At the current stage, **weighted BERT** is the most suitable primary model.
-
----
-
-## Current model status
-
-### Completed
-- LIAR dataset loading and inspection
-- TF-IDF baseline
-- BERT baseline
-- BERT 3-seed stability check
-- weighted BERT baseline
-- weighted BERT 3-seed stability check
-- RoBERTa baseline
-
-### Current main model
-- **Primary model:** weighted BERT
-- Reason:
-  - best mean Macro-F1 among tested baselines
-  - better balance between REAL and FAKE
-  - more suitable than RoBERTa if balanced performance is prioritised over raw accuracy
+This part is now better understood through error analysis and targeted follow-up tests, rather than only raw score comparison.
 
 ---
 
 ## Main remaining gaps
 
 ### 1. Literature review is still too limited
-The supervisor previously noted that the literature review was not yet sufficient.
+The experimental line is now ahead of the reading and writing line.
 
 What this means:
-- the project now has stronger experimental progress than before
-- but the related-work section still needs to be expanded
-- more paper summaries and clearer positioning against prior work are still needed
+- more paper summaries are still needed,
+- and the current results need to be positioned more clearly against prior work.
 
-Why it matters:
-- the dissertation needs stronger literature coverage
-- the experimental results now need to be framed more clearly against existing work
+### 2. Cross-dataset / cross-domain work has not properly started yet
+The LIAR in-domain baseline line is now strong enough to support the next stage, but the cross-dataset pipeline is still missing.
 
-### 2. Cross-dataset / cross-domain work has not started properly yet
-The supervisor previously indicated that stronger models should be established first, and then the cross part should follow.
-
-What this means:
-- the LIAR in-domain baseline line is now much stronger
-- but the cross-dataset pipeline is still not in place
-
-Why it matters:
-- this is likely to become one of the next major parts of the dissertation
-- model-only improvement is no longer the main bottleneck
-
-### 3. Error analysis still needs to be written up
-The project now has enough model evidence to support more detailed analysis, but the error analysis section is still missing.
-
-What this means:
-- I can now analyse false positives, false negatives, and remaining FAKE-class errors
-- this would strengthen the Results and Discussion sections
-
-Why it matters:
-- the dissertation needs interpretation, not only performance numbers
-- weighted BERT is especially suitable for this analysis because it changes class balance in an interpretable way
+### 3. Analysis now needs to be turned into thesis writing
+The project now has enough material for:
+- a stronger Results section,
+- a clearer Discussion section,
+- and a proper Error Analysis subsection.
 
 ---
 
-## Current risks
+## Current risk
 
-### Risk 1: spending too much time on small extra model variations
-Now that weighted BERT is already a strong main baseline, further minor tuning may give only small gains.
+The main current risk is spending too much time on extra model variations that may only produce small gains.
 
-Why this matters:
-- time is probably better spent on literature review, analysis, and cross-dataset work
-
-### Risk 2: experimental line is ahead of the writing line
-The modelling progress is now much stronger than the documentation and literature review progress.
-
-Why this matters:
-- this can create a gap between what has been implemented and what is ready to be written into the dissertation
-
----
-
-## Next actions
-
-The next project priorities are now:
-
-1. write up the current baseline results more cleanly across the project files
-2. expand the literature review and add more paper summaries
-3. carry out error analysis for the weighted BERT model
-4. design and begin the cross-dataset / cross-domain pipeline
-5. keep additional model work optional rather than central
-
-Optional extra experiment only if time allows:
-- RoBERTa + weighted loss
-- statement vs statement + context comparison
+At this stage, the more valuable work is likely to be:
+- literature review,
+- interpretation,
+- and cross-dataset planning,
+rather than further incremental model tuning.
 
 Dates and detailed task status are tracked in:
 

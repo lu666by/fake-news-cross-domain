@@ -8,7 +8,7 @@ The project uses the following binary label mapping:
 - **REAL (0):** `true`, `mostly-true`, `half-true`
 - **FAKE (1):** `barely-true`, `false`, `pants-fire`
 
-All current baseline experiments use **statement** as the main input text.
+All current baseline experiments use **statement** as the main input text unless explicitly stated otherwise.
 
 ## Dataset
 Split sizes:
@@ -18,126 +18,130 @@ Split sizes:
 - **Test:** 1267
 
 ## Baseline development path
-The baseline development progressed through the following stages:
+The baseline line has progressed through the following stages:
 
 1. **TF-IDF + Logistic Regression**
 2. **BERT-base**
 3. **BERT-base + weighted loss**
-4. **RoBERTa-base**
+4. **RoBERTa-base + weighted loss**
+5. targeted follow-up checks based on error analysis
 
 ## Main results
 
 | Model | Accuracy | Macro-F1 | Notes |
 |---|---:|---:|---|
-| TF-IDF + Logistic Regression | 0.6235 | 0.6005 | Final sparse baseline |
-| BERT-base (3-seed mean) | 0.6369 ± 0.0028 | 0.6169 ± 0.0054 | Mean over seeds 42, 52, 62 |
-| BERT-base + weighted loss (3-seed mean) | 0.6404 ± 0.0078 | 0.6304 ± 0.0081 | Mean over seeds 42, 52, 62 |
-| RoBERTa-base (single run) | 0.6504 | 0.6262 | Single run only |
+| TF-IDF + Logistic Regression | 0.6235 | 0.6005 | Final sparse baseline; effectively deterministic |
+| BERT-base (5-run mean) | 0.6425 ± 0.0095 | 0.6231 ± 0.0122 | Mean over seeds 42, 52, 62, 72, 82 |
+| BERT-base + weighted loss (5-run mean) | 0.6412 ± 0.0065 | 0.6322 ± 0.0090 | Mean over 5 runs; stronger FAKE recall |
+| RoBERTa-base + weighted loss (5-run mean) | 0.6522 ± 0.0074 | 0.6396 ± 0.0080 | Mean over 5 runs; current strongest overall model |
 
-## Current primary model
-The current **primary model** is **BERT-base with weighted loss**.
+## Class-wise recall summary
 
-This is the most suitable main model for the current study because:
+| Model | REAL Recall | FAKE Recall | Notes |
+|---|---:|---:|---|
+| TF-IDF + Logistic Regression | 0.7661 | 0.4394 | Sparse baseline |
+| BERT-base (5-run mean) | N/A | N/A | Not available in the saved 5-run result file |
+| BERT-base + weighted loss (5-run mean) | 0.7048 ± 0.0292 | 0.5591 ± 0.0447 | Best FAKE recall among current baselines |
+| RoBERTa-base + weighted loss (5-run mean) | 0.7443 ± 0.0153 | 0.5335 ± 0.0199 | Stronger overall balance, but lower FAKE recall than weighted BERT |
 
-- it achieves the **best mean Macro-F1** among the tested models,
-- it improves over the unweighted BERT baseline,
-- it provides better balance between the **REAL** and **FAKE** classes,
-- it is more appropriate than RoBERTa when **class-balanced performance** is prioritised over raw accuracy alone.
+## Current model status
+At the current stage, the LIAR baseline line is now strong enough for this phase of the project.
 
-## Weighted BERT (current main result)
-The weighted BERT baseline was run with **3 random seeds**: `42`, `52`, and `62`.
+The main comparison is no longer just between sparse and neural baselines.  
+It is now mainly about the trade-off between:
 
-### Mean and standard deviation
-- **Validation Accuracy:** `0.6477 ± 0.0065`
-- **Validation Macro-F1:** `0.6449 ± 0.0061`
-- **Test Accuracy:** `0.6404 ± 0.0078`
-- **Test Macro-F1:** `0.6304 ± 0.0081`
-- **REAL Recall:** `0.7129 ± 0.0194`
-- **FAKE Recall:** `0.5467 ± 0.0241`
+- **weighted BERT**, which is stronger on **FAKE recall**
+- **weighted RoBERTa**, which is stronger on **overall performance**
 
-## Comparison with earlier baselines
+## Current main interpretation
+The current results suggest four main conclusions.
 
-### Weighted BERT vs TF-IDF
-- **Accuracy delta:** `+0.0169`
-- **Macro-F1 delta:** `+0.0299`
+### 1. Transformer baselines consistently outperform the sparse baseline
+The project has now clearly moved beyond the traditional TF-IDF-only stage.
 
-### Weighted BERT vs unweighted BERT
-- **Accuracy delta:** `+0.0034`
-- **Macro-F1 delta:** `+0.0135`
+Compared with TF-IDF + Logistic Regression, transformer baselines produce higher overall accuracy and higher macro-F1 on the LIAR binary task.
 
-### Weighted BERT vs RoBERTa
-- **Accuracy delta:** `-0.0100`
-- **Macro-F1 delta:** `+0.0042`
+### 2. The gain from TF-IDF to transformers is meaningful but moderate
+The improvement is real and stable, but not dramatic.
 
-These results show that **RoBERTa currently has slightly higher test accuracy**, but **weighted BERT achieves better Macro-F1** and more balanced class performance.
+This is consistent with the difficulty of the LIAR dataset:
+- the statements are short,
+- the label boundary becomes narrow after binary compression,
+- and many claims remain difficult even for stronger transformer models.
 
-## Additional model notes
+### 3. Class balance remains a central challenge
+Across the baselines, one of the most important recurring issues is the imbalance between performance on **REAL** and **FAKE**.
 
-### TF-IDF + Logistic Regression
-The TF-IDF baseline remains the main traditional baseline for the project.
+This is one reason why simple overall accuracy is not enough to judge model quality in this project.
 
-Final result:
-- **Accuracy:** `0.6235`
-- **Macro-F1:** `0.6005`
+### 4. Weighted training is useful, but different weighted models optimise different strengths
+The current weighted transformer results suggest a clear division:
 
-### Unweighted BERT
-The unweighted BERT baseline was evaluated across 3 random seeds.
+- **weighted BERT** is more willing to predict **FAKE**, so it remains important when the priority is stronger FAKE recall,
+- **weighted RoBERTa** is more conservative and better calibrated overall, so it is currently stronger when the priority is overall performance.
 
-Mean result:
-- **Test Accuracy:** `0.6369 ± 0.0028`
-- **Test Macro-F1:** `0.6169 ± 0.0054`
+## TF-IDF note
+The TF-IDF + Logistic Regression baseline was checked across 5 seeds.
 
-This model consistently outperformed TF-IDF, but still showed weaker recall on the **FAKE** class.
+All 5 runs were identical, which shows that the current sparse pipeline is effectively deterministic in this setup.  
+Repeated seed runs are therefore **not** a meaningful stability experiment for this baseline.
 
-### RoBERTa
-RoBERTa was run once under the same overall LIAR binary setup.
+## Error-analysis-guided follow-up checks
+Two direct follow-up ideas were tested after the main model line had been established.
+
+### 1. Statement-only vs statement + context
+A controlled weighted RoBERTa comparison tested:
+
+- `statement_only`
+- `statement + " [CTX] " + context`
 
 Result:
-- **Best epoch:** `3`
-- **Validation Accuracy:** `0.6558`
-- **Validation Macro-F1:** `0.6435`
-- **Test Accuracy:** `0.6504`
-- **Test Macro-F1:** `0.6262`
+- direct context concatenation **did not improve** performance,
+- it reduced test accuracy,
+- it reduced test macro-F1,
+- and it reduced FAKE recall.
 
-RoBERTa currently gives the highest single-run accuracy, but it does not outperform weighted BERT on Macro-F1.
+Interpretation:
+- the LIAR `context` field often behaves more like source or venue metadata than true factual background,
+- so naive concatenation adds noise rather than useful evidence.
 
-## Main interpretation
-The current baseline results suggest three main conclusions.
+### 2. Threshold tuning for weighted RoBERTa
+Validation-set threshold tuning was also tested.
 
-First, transformer-based baselines consistently outperform the TF-IDF baseline on LIAR binary fake news detection.
+Result:
+- selecting the threshold by validation macro-F1 did **not** improve the test result,
+- and it further reduced FAKE recall.
 
-Second, the improvement from TF-IDF to BERT is **stable but moderate**, rather than dramatic. This suggests that contextual transformer representations help, but do not fully solve the difficulty of the task.
-
-Third, adding **class-weighted loss** is an effective improvement. It reduces the model’s bias toward the **REAL** class, improves balance between the two classes, and produces the strongest overall Macro-F1 result among the tested baselines.
-
-## Class balance observation
-A central challenge in this task is that models tend to achieve stronger recall on **REAL** than on **FAKE**.
-
-The weighted BERT result reduces this imbalance and gives the strongest overall balance among the tested baselines. This is one of the main reasons it is treated as the current best model.
-
-## Model status
-Current status of the main baselines:
-
-- **TF-IDF + Logistic Regression:** completed
-- **BERT-base:** completed, 3-seed stability confirmed
-- **BERT-base + weighted loss:** completed, 3-seed stability confirmed
-- **RoBERTa-base:** completed as a single run
+Interpretation:
+- the current conservative FAKE boundary is not solved by simple threshold tuning under a macro-F1 objective,
+- so threshold tuning is not a strong next-step direction under the current evaluation priority.
 
 ## Current conclusion
-At the current stage of the project, **weighted BERT** is the strongest main baseline overall.
+The current baseline line is now mature enough for the present project stage.
 
-RoBERTa is still important as a comparison model because it gives higher test accuracy, but weighted BERT is currently the more suitable primary model because it achieves the best average Macro-F1 and better class balance.
+The strongest overall summary is:
+
+- **TF-IDF + Logistic Regression** remains the main sparse baseline,
+- **BERT-base** is the main unweighted neural baseline,
+- **weighted BERT** remains important because of its stronger FAKE recall,
+- **weighted RoBERTa** is currently the strongest overall model.
+
+For thesis writing, the most defensible interpretation is:
+
+- **weighted RoBERTa** should be treated as the current main overall model,
+- while **weighted BERT** should be retained as the key comparison model for class-balance and FAKE-recall analysis.
 
 ## Next priorities
-The next project priorities are no longer simple linear-model comparisons.
+The next project priorities are no longer broad model exploration.
 
-The main next steps are:
+The main next steps are now:
 
-1. **error analysis** of the weighted BERT model,
-2. **literature review expansion**,
-3. **cross-dataset / cross-domain pipeline design and implementation**.
+1. expand the literature review,
+2. turn the current error analysis into a thesis-ready subsection,
+3. prepare the cross-dataset / cross-domain pipeline,
+4. keep any further model work limited to clearly justified cases only.
 
 ## Notes
-- TF-IDF remains the main sparse baseline.
-- Weighted BERT is currently the main neural baseline.
-- RoBERTa should not yet be treated as the final best model, because it has only been run once and currently trades slightly higher accuracy for weaker class balance.
+- This file should remain a short high-level summary.
+- Detailed per-run results should stay in the dedicated result files.
+- The detailed LIAR baseline record should remain in `results/liar_baseline.md`.

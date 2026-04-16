@@ -1,75 +1,45 @@
 # Notebooks
 
-This folder contains the main experiment notebooks used in this MSc dissertation project.
+This folder contains the main notebooks and scripts used in this project.
 
-The notebooks here are the **user’s own working versions** and form the main record of:
-
-- dataset loading and inspection,
-- sparse baseline experiments,
-- transformer baseline experiments,
-- weighted model extensions,
-- and targeted follow-up comparison checks.
-
-## Contents
+## Files
 
 - `01_liar_load.ipynb`  
-  Load and inspect the LIAR dataset, including split sizes, binary label distribution, example statements, example contexts, and simple text statistics.
+  Load and inspect the LIAR dataset.
 
 - `02_tfidf_baseline.ipynb`  
-  Run the LIAR **TF-IDF + Logistic Regression** baseline, compare validation settings, and record the final sparse baseline result.
+  Run the LIAR TF-IDF + Logistic Regression baseline.
 
 - `03_bert_baseline.ipynb`  
-  Run the LIAR **BERT-base** baseline for binary classification.
+  Run the LIAR unweighted BERT baseline.
 
 - `04_bert_weighted_baseline.ipynb`  
-  Run the LIAR **BERT-base + weighted loss** baseline.
+  Run the LIAR weighted BERT baseline.
 
 - `05_roberta_baseline.ipynb`  
-  Run the LIAR **RoBERTa-base** baseline as a stronger transformer comparison model.
+  Run the LIAR unweighted RoBERTa baseline.
 
 - `06_roberta_weighted_baseline.ipynb`  
-  Run the LIAR **RoBERTa-base + weighted loss** baseline, which is currently the strongest overall model line.
+  Run the LIAR weighted RoBERTa baseline.
 
 - `07_roberta_weighted_context_comparison.py`  
-  Run a controlled comparison between:
-  - `statement_only`
-  - `statement + " [CTX] " + context`
-  under the same weighted RoBERTa setup.
+  Compare `statement_only` vs `statement + [CTX] + context` under the weighted RoBERTa setup.
 
 - `08_roberta_weighted_threshold_tuning.py`  
-  Run validation-based threshold tuning for the weighted RoBERTa model and compare alternative decision thresholds.
+  Test validation-based threshold tuning for weighted RoBERTa.
 
 ## Recommended reading order
 
-For reading or supervisor review, the recommended order is:
-
 `01 -> 02 -> 03 -> 04 -> 05 -> 06 -> 07 -> 08`
 
-This order reflects the actual development path of the project:
+## Current main model file
 
-1. data loading and inspection,
-2. traditional sparse baseline,
-3. unweighted transformer baseline,
-4. weighted BERT improvement,
-5. unweighted RoBERTa comparison,
-6. weighted RoBERTa extension,
-7. context-based follow-up check,
-8. threshold-tuning follow-up check.
+The current strongest overall model is the weighted RoBERTa setup, mainly recorded in:
 
-## Current status
+- `06_roberta_weighted_baseline.ipynb`
 
-At the current stage of the project:
+## Note
 
-- the **TF-IDF** notebook provides the main traditional baseline,
-- the **BERT** notebook provides the main unweighted neural baseline,
-- the **weighted BERT** notebook remains important as the stronger **FAKE-recall** comparison model,
-- the **weighted RoBERTa** notebook provides the current **strongest overall model**,
-- the later follow-up scripts test the most direct next-step ideas suggested by error analysis.
+The notebooks and scripts in this folder are the user’s own working files for this dissertation project.
 
-## Important note
-
-External GitHub repositories were used only as **implementation references**.
-
-They do **not** replace the notebooks and scripts in this folder, which remain the primary record of the user’s own implementation and experiments.
-
-External reference links should be listed in the project-level `README.md`.
+External repositories were used only as implementation references and do not replace the files in this folder.

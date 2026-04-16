@@ -7,22 +7,38 @@
 
 ## What I did this week
 
-This week I focused on making the current transformer results more reliable and on testing the most direct follow-up ideas, rather than continuing broad model changes.
+This week I focused on making the current transformer results more reliable and on testing the most direct follow-up ideas suggested by the current LIAR results.
 
-### 1. Extended the unweighted BERT stability check
-- I extended the unweighted BERT baseline from **3 runs to 5 runs**.
-- The new 5-run mean is:
+### 1. Extended the main transformer baselines to 5 runs
+I extended the main transformer baselines so that the current comparison is no longer based on only 1 or 3 runs.
+
+Updated 5-run results:
+
+- **Unweighted BERT**
   - **Test Accuracy:** `0.6425 ± 0.0095`
   - **Test Macro-F1:** `0.6231 ± 0.0122`
 
+- **Weighted BERT**
+  - **Test Accuracy:** `0.6412 ± 0.0065`
+  - **Test Macro-F1:** `0.6322 ± 0.0090`
+  - **REAL recall:** `0.7048 ± 0.0292`
+  - **FAKE recall:** `0.5591 ± 0.0447`
+
+- **Weighted RoBERTa**
+  - **Test Accuracy:** `0.6522 ± 0.0074`
+  - **Test Macro-F1:** `0.6396 ± 0.0080`
+  - **REAL recall:** `0.7443 ± 0.0153`
+  - **FAKE recall:** `0.5335 ± 0.0199`
+
 Main point:
-- the BERT improvement over TF-IDF still holds,
-- but seed variance is real,
-- so reporting mean and standard deviation is more appropriate than relying on a single run.
+- the current transformer comparison is now more reliable,
+- the gains remain moderate rather than dramatic,
+- but the overall pattern is stable enough to support the current stage of the project.
 
 ### 2. Completed a more concrete error analysis
-- I completed an error analysis comparing representative **weighted BERT** and **weighted RoBERTa** checkpoints.
-- The analysis now identifies concrete recurring error types rather than only reporting class-wise metrics.
+I completed an error analysis comparing representative **weighted BERT** and **weighted RoBERTa** checkpoints.
+
+The analysis now identifies concrete recurring error types rather than only reporting class-wise metrics.
 
 Main patterns:
 - `numeric_claim`
@@ -31,31 +47,32 @@ Main patterns:
 
 Main interpretation:
 - weighted BERT is more willing to predict **FAKE**, so it achieves stronger FAKE recall,
-- weighted RoBERTa appears more conservative and better calibrated overall.
+- weighted RoBERTa appears more conservative and better calibrated overall,
+- which helps explain why weighted RoBERTa is stronger overall, while weighted BERT remains valuable for FAKE-recall analysis.
 
 ### 3. Tested statement-only vs statement + context
-- I ran a controlled comparison using the weighted RoBERTa setup, changing only the input text:
-  - `statement_only`
-  - `statement + [CTX] + context`
+I ran a controlled comparison using the weighted RoBERTa setup, changing only the input text:
+
+- `statement_only`
+- `statement + [CTX] + context`
 
 Main result:
-- naive context concatenation did **not** improve performance.
-- It reduced:
-  - test accuracy
-  - test macro-F1
-  - FAKE recall
+- naive context concatenation did **not** improve performance,
+- it reduced:
+  - test accuracy,
+  - test macro-F1,
+  - and FAKE recall.
 
 Main interpretation:
 - in LIAR, the `context` field often behaves more like source or venue metadata than true factual background,
 - so directly concatenating it adds noise rather than useful evidence.
 
 ### 4. Tested threshold tuning for weighted RoBERTa
-- I scanned decision thresholds on the validation set while keeping the same trained weighted RoBERTa model.
-- The validation macro-F1 optimum shifted to a more conservative threshold.
+I scanned decision thresholds on the validation set while keeping the same trained weighted RoBERTa model.
 
 Main result:
-- threshold tuning based on validation **macro-F1** did **not** improve test performance.
-- It reduced FAKE recall on the test set.
+- threshold tuning based on validation **macro-F1** did **not** improve test performance,
+- and it reduced FAKE recall on the test set.
 
 Main interpretation:
 - simply tuning the threshold for macro-F1 does not automatically solve the conservative FAKE boundary problem,
@@ -65,14 +82,15 @@ Main interpretation:
 
 ## Main findings this week
 
-- The unweighted BERT baseline is more stable when averaged over 5 runs than when reported from only 3 runs.
+- The main transformer baselines have now been extended to **5 runs**, so the current model comparison is much more stable than before.
+- **Weighted RoBERTa** is currently the strongest **overall** model.
+- **Weighted BERT** remains important because it gives stronger **FAKE recall**.
 - The current remaining difficulty is still concentrated in:
   - numeric claims,
   - narrow label boundaries,
   - and missing context.
 - Naive context concatenation is **not** a useful next step for the current LIAR setup.
-- Macro-F1-based threshold tuning is also **not** a good direct fix for the current FAKE recall weakness.
-- This means the model line is now better understood, and the most obvious low-cost follow-up ideas have already been tested.
+- Macro-F1-based threshold tuning is also **not** a strong direct fix for the current FAKE recall weakness.
 
 ---
 
@@ -136,48 +154,46 @@ Main observation:
   - **Macro-F1:** `0.6231 ± 0.0122`
 
 Main observation:
-- stable improvement over TF-IDF
-- but FAKE recall remains weaker than REAL recall
+- stable improvement over TF-IDF,
+- but FAKE recall remains weaker than REAL recall.
 
 #### 3. Weighted BERT
-- 3-run mean:
-  - **Accuracy:** `0.6404 ± 0.0078`
-  - **Macro-F1:** `0.6304 ± 0.0081`
-  - **REAL recall:** `0.7129 ± 0.0194`
-  - **FAKE recall:** `0.5467 ± 0.0241`
+- 5-run mean:
+  - **Accuracy:** `0.6412 ± 0.0065`
+  - **Macro-F1:** `0.6322 ± 0.0090`
+  - **REAL recall:** `0.7048 ± 0.0292`
+  - **FAKE recall:** `0.5591 ± 0.0447`
 
 Main observation:
-- weighted loss improves macro-F1
-- weighted loss improves FAKE recall
-- weighted BERT remains an important class-balanced model
+- weighted loss improves macro-F1 relative to unweighted BERT,
+- weighted BERT remains especially valuable because it gives stronger FAKE recall,
+- but it is not the strongest overall model.
 
-#### 4. RoBERTa line
-- RoBERTa baselines and follow-up checks have now been run as comparison models.
-- The recent follow-up analyses suggest:
-  - stronger overall calibrated performance in some settings,
-  - but not necessarily the strongest FAKE recall.
+#### 4. Weighted RoBERTa
+- 5-run mean:
+  - **Accuracy:** `0.6522 ± 0.0074`
+  - **Macro-F1:** `0.6396 ± 0.0080`
+  - **REAL recall:** `0.7443 ± 0.0153`
+  - **FAKE recall:** `0.5335 ± 0.0199`
 
-This part is now better understood through error analysis and targeted follow-up tests, rather than only raw score comparison.
+Main observation:
+- weighted RoBERTa is currently the strongest overall model,
+- it gives the best overall accuracy and macro-F1,
+- but weighted BERT still gives stronger FAKE recall.
 
 ---
 
 ## Main remaining gaps
 
-### 1. Literature review is still too limited
-The experimental line is now ahead of the reading and writing line.
-
-What this means:
-- more paper summaries are still needed,
-- and the current results need to be positioned more clearly against prior work.
+### 1. Literature review still needs expansion
+The experimental line is now ahead of the reading and writing line.  
+More paper summaries and clearer positioning against prior work are still needed.
 
 ### 2. Cross-dataset / cross-domain work has not properly started yet
-The LIAR in-domain baseline line is now strong enough to support the next stage, but the cross-dataset pipeline is still missing.
+The LIAR in-domain baseline line is now strong enough, but the next-stage cross-dataset pipeline is still missing.
 
-### 3. Analysis now needs to be turned into thesis writing
-The project now has enough material for:
-- a stronger Results section,
-- a clearer Discussion section,
-- and a proper Error Analysis subsection.
+### 3. The current analysis now needs to be turned into thesis writing
+The project now has enough material for a stronger Results section, a clearer Discussion section, and a proper Error Analysis subsection.
 
 ---
 

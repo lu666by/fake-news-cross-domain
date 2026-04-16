@@ -7,15 +7,15 @@
 
 ## Project overview
 
-This project studies **cross-dataset generalisation for fake news / misinformation detection**, with a current focus on building and analysing strong baselines on the **LIAR** dataset before moving to cross-dataset experiments.
+This project studies **cross-dataset generalisation for fake news / misinformation detection**.
+
+The current work focuses on building and analysing strong **LIAR in-domain binary baselines** before moving to the later **cross-dataset / cross-domain** stage.
 
 The overall goal is to understand:
 
 - how model performance changes under dataset shift,
-- why performance drops when moving across datasets,
+- why performance drops across datasets,
 - and whether simple adaptation strategies can help reduce that drop.
-
-At the current stage, the project has established several **LIAR in-domain binary baselines**, which now provide the foundation for later cross-dataset work.
 
 ---
 
@@ -26,40 +26,37 @@ The project is currently in the **baseline consolidation and transition stage**.
 This means:
 
 - the LIAR in-domain baseline line has already been established,
-- stronger transformer baselines have been implemented and compared,
-- the current priority is now to:
-  - consolidate the results clearly,
-  - expand the literature review,
-  - write error analysis,
-  - and prepare the later **cross-dataset / cross-domain** pipeline.
+- the main transformer baselines have been stabilised with **5-run results**,
+- and the current priority is now:
+  - to consolidate the results clearly,
+  - to expand the literature review,
+  - to write thesis-ready error analysis,
+  - and to prepare the later **cross-dataset / cross-domain** pipeline.
 
-The project is **no longer** mainly focused on improving only the traditional sparse baseline.
+The project is no longer mainly focused on improving only the traditional sparse baseline.
 
 ---
 
 ## Current main conclusion
 
-The current LIAR binary baseline results show the following progression:
+The current LIAR binary baseline results are:
 
 | Model | Accuracy | Macro-F1 | Notes |
 |---|---:|---:|---|
 | TF-IDF + Logistic Regression | 0.6235 | 0.6005 | Main sparse baseline |
-| BERT-base (3-seed mean) | 0.6369 ± 0.0028 | 0.6169 ± 0.0054 | Main unweighted neural baseline |
-| BERT-base + weighted loss (3-seed mean) | 0.6404 ± 0.0078 | 0.6304 ± 0.0081 | Current primary model |
-| RoBERTa-base (single run) | 0.6504 | 0.6262 | Comparison model |
+| BERT-base (5-run mean) | 0.6425 ± 0.0095 | 0.6231 ± 0.0122 | Main unweighted neural baseline |
+| BERT-base + weighted loss (5-run mean) | 0.6412 ± 0.0065 | 0.6322 ± 0.0090 | Stronger FAKE recall |
+| RoBERTa-base + weighted loss (5-run mean) | 0.6522 ± 0.0074 | 0.6396 ± 0.0080 | Current strongest overall model |
 
-### Current primary model
+### Current model interpretation
 
-The current **primary model** is **BERT-base with weighted loss**.
+- **Current strongest overall model:** **RoBERTa-base + weighted loss**
+- **Current strongest FAKE-recall comparison model:** **BERT-base + weighted loss**
 
-This model is currently preferred because:
+This means the project now shows a useful trade-off:
 
-- it gives the **best mean Macro-F1** among the tested baselines,
-- it improves over the unweighted BERT baseline,
-- it improves **FAKE recall**,
-- and it gives the best overall **class-balanced performance**.
-
-RoBERTa currently achieves slightly higher single-run accuracy, but weighted BERT is more suitable as the main model because the project prioritises balanced performance rather than raw accuracy alone.
+- **weighted BERT** is stronger on **FAKE recall**
+- **weighted RoBERTa** is stronger on **overall performance**
 
 ---
 
@@ -94,18 +91,21 @@ RoBERTa currently achieves slightly higher single-run accuracy, but weighted BER
   Short-term planning context.
 
 - `progress/progress_summary.md`  
-  Short narrative summary of project progress.
+  Short weekly narrative update.
 
 - `notes/clean_notes.md`  
   Explainable research notes, decisions, and open questions.
 
 - `notebooks/`  
-  Main experiment notebooks used in this project.
+  Main experiment notebooks and scripts used in this project.
   - `01_liar_load.ipynb` — load and inspect the LIAR dataset
-  - `02_tfidf_baseline.ipynb` — TF-IDF baseline experiments
-  - `03_bert_baseline.ipynb` — BERT baseline
+  - `02_tfidf_baseline.ipynb` — TF-IDF baseline
+  - `03_bert_baseline.ipynb` — unweighted BERT baseline
   - `04_bert_weighted_baseline.ipynb` — weighted BERT baseline
-  - `05_roberta_baseline.ipynb` — RoBERTa baseline
+  - `05_roberta_baseline.ipynb` — unweighted RoBERTa baseline
+  - `06_roberta_weighted_baseline.ipynb` — weighted RoBERTa baseline
+  - `07_roberta_weighted_context_comparison.py` — statement vs statement + context comparison
+  - `08_roberta_weighted_threshold_tuning.py` — threshold tuning for weighted RoBERTa
 
 - `results/`  
   Experiment outputs and evaluation summaries.
@@ -120,39 +120,14 @@ RoBERTa currently achieves slightly higher single-run accuracy, but weighted BER
 
 ---
 
-## Working principles
-
-- `tracking.md` is the main place for task status and evidence.
-- `plans/` and `progress/` provide context, but do not replace `tracking.md`.
-- Experimental results should be clearly recorded in `results/`.
-- Notes should remain explainable and concise.
-- The notebooks in this repository are the **user’s own working versions** and remain the primary implementation record for the dissertation.
-
----
-
-## Update rules
-
-- Every paper read → add it to `papers/reading_list.md` and create or update a summary in `papers/summaries/`
-- Every few days → update `progress/progress_summary.md`
-- Every week → refresh `plans/plan_next_2_weeks.md`
-- After each meaningful experiment update → record results in `results/`
-- When the project conclusion changes → synchronise `results/`, `progress/`, `plans/`, and `tracking.md`
-
----
-
 ## Current priorities
 
 The current priorities are:
 
 1. finalise and synchronise the baseline result documentation,
 2. expand the literature review,
-3. write error analysis for the weighted BERT model,
+3. turn the current error analysis into thesis-ready writing,
 4. prepare the cross-dataset / cross-domain pipeline.
-
-Optional additional experiments only if time allows:
-
-- RoBERTa + weighted loss
-- statement vs statement + context
 
 ---
 
@@ -165,19 +140,5 @@ Some implementation ideas were informed by publicly available repositories relat
 
 These repositories were used only as **implementation references**.
 
-They do **not** replace the notebooks in this repository.  
-All notebooks in this project are the **user’s own working versions** written specifically for this dissertation workflow.
-
----
-
-## Current status summary
-
-At the current stage of the project:
-
-- the traditional sparse baseline has been completed,
-- stronger transformer baselines have been implemented,
-- weighted BERT is currently the main model,
-- the project is ready to shift more attention toward:
-  - interpretation,
-  - literature review,
-  - and the later cross-dataset stage.
+They do **not** replace the notebooks and scripts in this repository.  
+The files in this project remain the user’s own working versions written specifically for this dissertation workflow.

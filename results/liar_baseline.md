@@ -270,7 +270,7 @@ This means threshold tuning is not a strong direct improvement path under the cu
 | This project | LIAR binary | BERT-base (5-run mean) | 0.6425 ± 0.0095 | 0.6231 ± 0.0122 | Yes | Main unweighted neural baseline |
 | This project | LIAR binary | BERT-base + weighted loss (5-run mean) | 0.6412 ± 0.0065 | 0.6322 ± 0.0090 | Yes | Stronger FAKE recall |
 | This project | LIAR binary | RoBERTa-base + weighted loss (5-run mean) | 0.6522 ± 0.0074 | 0.6396 ± 0.0080 | Yes | Current strongest overall model |
-| Liu et al. (2024) TELLER | LIAR binary | TELLER | 67.73 | 66.97 | Yes | Stronger than the current baselines, but uses a more advanced framework |
+| Liu et al. (2024) TELLER | LIAR binary | Advanced published framework | 0.6773 | 0.6697 | Partly | Included as an advanced literature comparison; not the same type of baseline as my BERT/RoBERTa models |
 | Papageorgiou et al. (2025) | LIAR binary / multi-dataset evaluation | BERT-based classifier | 0.63 | 0.64* | Partly | Uses multiple datasets; not the same as strict cross-dataset transfer |
 
 \* Reported as F1-score in the paper summary; not explicitly stated there as macro-F1.

@@ -98,7 +98,7 @@ Third, advanced systems such as TELLER [9] and ARG [10] improve performance but 
 
 Fourth, the relationship between class imbalance, evaluation metrics, and cross-domain transfer is not fully studied. When a model is transferred to a new dataset with a different class ratio, the effect on FAKE recall and Macro-F1 may differ from the in-domain case observed by Henning et al. [13], and this interaction has not been systematically reported.
 
-These gaps motivate the research direction of this dissertation: to establish reliable and reproducible in-domain baselines using weighted transformer models (BERT, RoBERTa), and to investigate how these baselines perform under cross-dataset transfer. The focus on training-efficient, locally reproducible models — without external API dependencies — addresses the accessibility gap identified above, while the systematic cross-dataset evaluation addresses the generalisation gap.
+These gaps motivate further work on reliable, reproducible in-domain baselines and systematic cross-dataset transfer for fake news detection. A particular need is to study training-efficient transformer-based methods that do not depend on external LLM APIs, while still reporting class-sensitive metrics such as Macro-F1 and FAKE recall.
 
 ## References
 

@@ -1,7 +1,7 @@
 # Reading List
 
 **Project:** Cross-dataset Generalisation for Fake News Detection  
-**Last updated:** 2025-05-09
+**Last updated:** 2026-05-10
 
 ---
 
@@ -27,15 +27,23 @@
 
 ---
 
-## New papers to add (first round: +6~8 papers)
+## Second-round additions (2026-05-10) — summaries written
 
 | Priority | Paper | Year | Section | Notes | Status | Summary file |
 |----------|-------|------|---------|-------|--------|--------------|
-| P0 | Liu et al. (2019) — RoBERTa | 2019 | §2 Transformer-based | Direct foundation for weighted RoBERTa baseline; shows BERT undertrained | To-read | — |
-| P0 | Shu et al. (2020) — FakeNewsNet | 2020 | §1 Datasets | Second most used fake news dataset after LIAR; cross-dataset candidate | To-read | — |
+| P0 | Liu et al. (2019) — RoBERTa | 2019 | §2 Transformer-based | Direct foundation for weighted RoBERTa baseline; shows BERT undertrained | Done | `summaries/liu2019_roberta.md` |
+| P0 | Shu et al. (2020) — FakeNewsNet | 2020 | §1 Datasets | Second most used fake news dataset after LIAR; cross-dataset candidate | Done | `summaries/shu2020_fakenewsnet.md` |
+| P1 | Silva et al. (2021) — Embracing Domain Differences | 2021 | §5 Cross-domain | Cross-domain fake news; tackles domain shift explicitly; AAAI 2021 | Done | `summaries/silva2021_cross_domain_fake_news.md` |
+| P1 | Hu et al. (2024) — Bad Actor, Good Advisor | 2024 | §3 LLM/reasoning | LLM influence on fake news generation and detection; dual role of LLMs | Done | `summaries/hu2024_bad_actor_good_advisor.md` |
+
+## Still to-read
+
+| Priority | Paper | Year | Section | Notes | Status | Summary file |
+|----------|-------|------|---------|-------|--------|--------------|
 | P1 | Augenstein et al. (2019) — MultiFC | 2019 | §1 Datasets | Multi-source fact verification; 26 fact-checking websites; EMNLP 2019 | To-read | — |
-| P1 | Silva et al. (2021) — Embracing Domain Differences | 2021 | §5 Cross-domain | Cross-domain fake news; tackles domain shift explicitly; AAAI 2021 | To-read | — |
-| P1 | Hu et al. (2024) — Bad Actor, Good Advisor | 2024 | §3 LLM/reasoning | LLM influence on fake news generation and detection; dual role of LLMs | To-read | — |
+| P1 | Castelo et al. (2019) — Topic-agnostic features | 2019 | §5 Cross-domain | Domain-invariant features for fake news; opposite design choice to Silva 2021 | To-read | — |
+| P1 | Han et al. (2020) — Continual learning for fake news | 2020 | §5 Cross-domain | Frames cross-domain detection as continual learning; EWC + GEM | To-read | — |
+| P1 | Pelrine et al. (2023) — LLM prompting for fake news | 2023 | §3 LLM/reasoning | Systematic LLM prompting comparison; LLM alone underperforms fine-tuned SLM | To-read | — |
 | P2 | Pan et al. (2023) — Program-guided Reasoning | 2023 | §3 LLM/reasoning | Fact-checking with program-guided reasoning; reasoning-based approach; ACL 2023 | To-read | — |
 | P2 | Rashkin et al. (2017) — Truth of Varying Shades | 2017 | §2 Traditional | Early linguistic baseline for fake news detection | To-read | — |
 

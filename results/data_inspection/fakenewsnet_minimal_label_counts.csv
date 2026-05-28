@@ -1,0 +1,5 @@
+source,label_name,count
+gossipcop,FAKE,5323
+gossipcop,REAL,16817
+politifact,FAKE,432
+politifact,REAL,624

@@ -1,0 +1,5 @@
+target,n,accuracy,macro_f1,real_recall,fake_recall,confusion_matrix
+LIAR test,1267,0.6235,0.6005,0.7661,0.4394,"[[547, 167], [310, 243]]"
+FakeNewsNet PolitiFact titles,1056,0.5152,0.5146,0.4631,0.5903,"[[289, 335], [177, 255]]"
+FakeNewsNet GossipCop titles,22140,0.4986,0.4715,0.4771,0.5664,"[[8023, 8794], [2308, 3015]]"
+FakeNewsNet combined titles,23196,0.4993,0.4745,0.4766,0.5682,"[[8312, 9129], [2485, 3270]]"

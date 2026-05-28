@@ -1,55 +1,69 @@
-# Plan (Next 2 Weeks) — Literature-focused (Dublin time / GMT)
+# Plan (Next 2 Weeks)
 
-## Goals (deliverables)
-- 2026-02-09 to 2026-02-22: produce 8–10 one-page paper summaries in `papers/summaries/`
-  - Note: 3 core papers already skimmed + summarized; this period will (1) refine those summaries and (2) add new summaries.
-- By 2026-02-22: write a 1–2 page literature synthesis (gaps + minimal experiment plan)
+_Last updated: 2026-05-29_
 
----
+## Current context
 
-## Week 1 (2026-02-09 to 2026-02-15)
+The project now has a complete dissertation story:
 
-### Day 1 (2026-02-09, Mon)
-- Task: Upgrade LIAR paper from skim → clearer notes (dataset facts + limitations)
-- Output: refine `papers/summaries/wang2017_liar.md` + update any missing details in summary
+1. LIAR in-domain baselines are established.
+2. Strict LIAR-to-FakeNewsNet direct transfer fails badly.
+3. Intermediate target-domain fine-tuning recovers performance.
+4. TELLER-like reasoning atoms are useful only as exploratory supporting analysis.
+5. The dissertation draft has been updated and layout-checked.
 
-### Day 2 (2026-02-10, Tue)
-- Task: Skim/Read a cross-dataset / distribution shift paper #1
-  - Suggested options: WILDS (distribution shifts benchmark) OR a paper about dataset bias/spurious correlations
-- Output: 1-page summary (new file) + add to `papers/reading_list.md`
+## Priority 1: Supervisor meeting and framing confirmation
 
-### Day 3 (2026-02-11, Wed)
-- Task: Skim/Read a cross-dataset / distribution shift paper #2
-  - Suggested options: CheckList (behavioral testing) OR another OOD evaluation protocol paper
-- Output: 1-page summary (new file) + add to `papers/reading_list.md`
+Goal:
 
-### Day 4 (2026-02-12, Thu)
-- Task: Read the FakeNewsNet dataset paper (or a fake-news benchmark paper)
-- Output: 1-page summary (new file) + add to `papers/reading_list.md`
+- Confirm that the current framing is acceptable: reproducible baselines, strict transfer failure, and target-domain fine-tuning recovery.
 
-### Day 5 (2026-02-13, Fri)
-- Task: Read a simple baselines / transfer evaluation protocol paper (keep it practical)
-- Output: 1-page summary (new file) + add brief notes in `progress/progress_summary.md`
+Discussion points:
 
-### Weekend (2026-02-14 to 2026-02-15, Sat–Sun)
-- Buffer: catch-up + clean notes
-- Output: update `progress/progress_summary.md` (what was completed + key takeaways + next actions)
+- Is the intermediate fine-tuning result enough as the main "recovery" contribution?
+- Should 10% and 20% target fine-tuning be repeated across more seeds?
+- Should the TELLER-like pilot stay in Chapter 6, or be shortened/moved to appendix?
 
----
+Files:
 
-## Week 2 (2026-02-16 to 2026-02-22)
+- `progress/supervisor_update_2026-05-29.md`
+- `progress/supervisor_meeting_talking_points_2026-05-29.md`
+- `thesis_writeup/dissertation_final.pdf`
 
-### Day 6–Day 9 (2026-02-16 to 2026-02-19, Mon–Thu)
-- Task: Read 3–4 papers (robustness / domain adaptation / fake news benchmarks)
-  - At least 1 paper related to domain adaptation (beyond DAPT paper)
-  - At least 1 paper related to fake news benchmarks or cross-domain fake news detection
-- Output: 3–4 one-page summaries (new files) + update `papers/reading_list.md`
+## Priority 2: Strengthen experimental reliability if requested
 
-### Day 10–Day 12 (2026-02-20 to 2026-02-22, Fri–Sun)
-- Task: Write a 1–2 page literature synthesis
-  - What is known about cross-dataset transfer / distribution shift
-  - What gaps remain (especially for LIAR vs FakeNewsNet mismatch)
-  - Minimal feasible experiment plan (baselines + evaluation protocol)
-- Output: add `literature_synthesis.md` (place in `plans/` or `progress/`) + list key gaps + candidate baselines
+Most likely next experiment:
 
----
+- Repeat the 10% and 20% intermediate fine-tuning settings across additional seeds.
+
+Reason:
+
+- The current direct-transfer transformer rows are 5-seed averages, but the intermediate fine-tuning rows are currently seed 42.
+- Multi-seed intermediate fine-tuning would make the recovery claim stronger.
+
+Evidence to start from:
+
+- `notebooks/13_intermediate_finetuning_fakenewsnet.py`
+- `results/intermediate_finetuning/intermediate_finetuning_weighted_roberta_seeds_42.md`
+
+## Priority 3: Final thesis polish
+
+Tasks:
+
+- Tighten Chapter 6 wording so the direct-transfer failure and adaptation recovery are easy to follow.
+- Keep TELLER-like atoms clearly framed as exploratory only.
+- Check tables/figures after any text changes.
+- Keep `thesis_writeup/dissertation_final.pdf` in sync with the Word draft.
+
+## Out of scope unless supervisor asks
+
+- Full TELLER reproduction.
+- New architecture design.
+- Broad hyperparameter search.
+- Uploading raw datasets or model checkpoints to GitHub.
+
+## Expected next deliverables
+
+- Supervisor-confirmed final experiment scope.
+- If needed: multi-seed intermediate fine-tuning summary.
+- Final dissertation text pass.

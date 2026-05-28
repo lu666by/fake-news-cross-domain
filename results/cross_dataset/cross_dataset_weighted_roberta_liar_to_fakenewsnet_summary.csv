@@ -1,0 +1,5 @@
+target,runs,accuracy_mean,accuracy_std,macro_f1_mean,macro_f1_std,real_recall_mean,real_recall_std,fake_recall_mean,fake_recall_std,elapsed_minutes_mean
+LIAR test,5,0.6522,0.0074,0.6396,0.0080,0.7443,0.0153,0.5335,0.0199,8.8541
+FakeNewsNet PolitiFact titles,5,0.4795,0.0332,0.4196,0.0529,0.1388,0.0681,0.9718,0.0177,8.8541
+FakeNewsNet GossipCop titles,5,0.2619,0.0145,0.2271,0.0216,0.0335,0.0230,0.9836,0.0122,8.8541
+FakeNewsNet combined titles,5,0.2718,0.0154,0.2358,0.0229,0.0372,0.0245,0.9827,0.0126,8.8541

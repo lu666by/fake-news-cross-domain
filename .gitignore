@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env
+*.log
+*.db
+data/raw/
+data/**/raw/
+data/**/*.csv
+data/**/*.tsv
+papers/pdfs/
+thesis_writeup/qa_outputs/
+thesis_writeup/archive_old_versions*/

@@ -1,0 +1,24 @@
+# Integrated Experiment Results Table
+
+- Date: 2026-05-25
+- Purpose: one-table view of in-domain baseline, direct transfer, intermediate fine-tuning, and TELLER-like pilot.
+- Important: intermediate fine-tuning rows are currently seed-42 results; direct transfer transformer rows are existing 5-seed averages unless marked otherwise.
+- TELLER-like rows are exploratory pilot results and should not be framed as the main contribution.
+
+| block | setting | decision_model | training_data | test_data | runs | target_fraction | target_train_n | accuracy | macro_f1 | real_recall | fake_recall | note |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| In-domain baseline | Weighted RoBERTa on LIAR test | Weighted RoBERTa | LIAR train | LIAR test | 5 seeds |  |  | 0.6522 | 0.6396 | 0.7443 | 0.5335 | Existing local in-domain transformer baseline. |
+| Direct transfer baseline | LIAR -> FakeNewsNet combined titles | Weighted RoBERTa | LIAR train | FakeNewsNet combined titles | 5 seeds | 0% | 0 | 0.2718 | 0.2358 | 0.0372 | 0.9827 | Strict zero-shot direct transfer from LIAR to FNN; severe FAKE bias. |
+| Direct transfer baseline | LIAR -> held-out FakeNewsNet test | Weighted RoBERTa | LIAR train | Held-out FakeNewsNet test split | seed 42 | 0% | 0 | 0.2601 | 0.2178 | 0.0183 | 0.9930 | Same held-out split used for intermediate fine-tuning comparison. |
+| Intermediate fine-tuning | LIAR -> 5% FNN train -> FNN test | Weighted RoBERTa | LIAR train, then 5% balanced FNN train titles | Held-out FakeNewsNet test split | seed 42 | 5% | 742 | 0.7519 | 0.4292 | 1.0000 | 0.0000 | High accuracy is misleading; model collapses to REAL predictions. |
+| Intermediate fine-tuning | LIAR -> 10% FNN train -> FNN test | Weighted RoBERTa | LIAR train, then 10% balanced FNN train titles | Held-out FakeNewsNet test split | seed 42 | 10% | 1484 | 0.8125 | 0.7141 | 0.9304 | 0.4553 | First effective intermediate fine-tuning setting; substantially reduces class-bias collapse. |
+| Intermediate fine-tuning | LIAR -> 20% FNN train -> FNN test | Weighted RoBERTa | LIAR train, then 20% balanced FNN train titles | Held-out FakeNewsNet test split | seed 42 | 20% | 2969 | 0.8231 | 0.7447 | 0.9157 | 0.5421 | Best current main-experiment result; improves FAKE recall while retaining high REAL recall. |
+| TELLER-like pilot | LLM atoms: LIAR atoms -> FakeNewsNet atoms | Logistic Regression on DeepSeek-generated atoms | LIAR train+valid atom features | Balanced FakeNewsNet atom test sample | 1000-row pilot |  |  | 0.5300 | 0.4405 | 0.1300 | 0.9300 | Exploratory pilot only; shows atoms preserve cross-domain FAKE bias. |
+| TELLER-like pilot | LLM atoms: FakeNewsNet atoms -> FakeNewsNet atoms | Logistic Regression on DeepSeek-generated atoms | Balanced FakeNewsNet train atom sample | Balanced FakeNewsNet atom test sample | 1000-row pilot |  | 200 | 0.6000 | 0.6000 | 0.5900 | 0.6100 | Target-domain atom upper-bound pilot; not a main contribution. |
+
+## Main Reading
+
+- Direct LIAR -> FakeNewsNet transfer fails mainly through class bias: the model predicts FAKE for nearly all target examples.
+- Intermediate fine-tuning with 5% target data is not enough: it flips into an almost all-REAL classifier.
+- Intermediate fine-tuning becomes useful at 10% and improves further at 20%, reaching Macro-F1 0.7447 on the held-out FakeNewsNet test split.
+- The TELLER-like atoms pilot shows some signal but preserves the cross-domain bias problem, so it remains supporting analysis rather than a main contribution.

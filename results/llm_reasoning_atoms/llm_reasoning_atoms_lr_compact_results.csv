@@ -1,0 +1,4 @@
+target,model,train_n,test_n,accuracy,macro_f1,real_recall,fake_recall,confusion_matrix
+LIAR atoms -> LIAR,Logistic Regression,400,200,0.6200,0.6198,0.6000,0.6400,"[[60, 40], [36, 64]]"
+LIAR atoms -> FakeNewsNet,Logistic Regression,400,200,0.5300,0.4405,0.1300,0.9300,"[[13, 87], [7, 93]]"
+FakeNewsNet atoms -> FakeNewsNet,Logistic Regression,200,200,0.6000,0.6000,0.5900,0.6100,"[[59, 41], [39, 61]]"

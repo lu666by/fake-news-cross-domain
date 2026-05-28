@@ -1,0 +1,28 @@
+target,n,accuracy,macro_f1,real_recall,fake_recall,confusion_matrix,classification_report,train_n,test_n,model,features
+LIAR atoms -> LIAR,200,0.62,0.6198479391756703,0.6,0.64,"[[60, 40], [36, 64]]","              precision    recall  f1-score   support
+
+        REAL     0.6250    0.6000    0.6122       100
+        FAKE     0.6154    0.6400    0.6275       100
+
+    accuracy                         0.6200       200
+   macro avg     0.6202    0.6200    0.6198       200
+weighted avg     0.6202    0.6200    0.6198       200
+",400,200,Logistic Regression,"emotional_language, exaggerated_claim, specific_evidence, source_reference, logical_consistency, clickbait_style"
+LIAR atoms -> FakeNewsNet,200,0.53,0.44047619047619047,0.13,0.93,"[[13, 87], [7, 93]]","              precision    recall  f1-score   support
+
+        REAL     0.6500    0.1300    0.2167       100
+        FAKE     0.5167    0.9300    0.6643       100
+
+    accuracy                         0.5300       200
+   macro avg     0.5833    0.5300    0.4405       200
+weighted avg     0.5833    0.5300    0.4405       200
+",400,200,Logistic Regression,"emotional_language, exaggerated_claim, specific_evidence, source_reference, logical_consistency, clickbait_style"
+FakeNewsNet atoms -> FakeNewsNet,200,0.6,0.5999599959995999,0.59,0.61,"[[59, 41], [39, 61]]","              precision    recall  f1-score   support
+
+        REAL     0.6020    0.5900    0.5960       100
+        FAKE     0.5980    0.6100    0.6040       100
+
+    accuracy                         0.6000       200
+   macro avg     0.6000    0.6000    0.6000       200
+weighted avg     0.6000    0.6000    0.6000       200
+",200,200,Logistic Regression,"emotional_language, exaggerated_claim, specific_evidence, source_reference, logical_consistency, clickbait_style"

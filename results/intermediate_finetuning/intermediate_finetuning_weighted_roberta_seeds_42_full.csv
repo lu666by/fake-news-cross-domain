@@ -1,0 +1,19 @@
+seed,model_key,stage,target_fraction,target_train_n,best_epoch,test_n,accuracy,macro_f1,real_recall,fake_recall,confusion_matrix,classification_report,elapsed_minutes
+42,weighted_roberta,source_only_zero_shot,0.0,0,3,4640,0.2601293103448276,0.21783259504534144,0.01834336486099169,0.9930495221546481,"[[64, 3425], [8, 1143]]","              precision    recall  f1-score   support
+
+        REAL     0.8889    0.0183    0.0359      3489
+        FAKE     0.2502    0.9930    0.3997      1151
+
+    accuracy                         0.2601      4640
+   macro avg     0.5696    0.5057    0.2178      4640
+weighted avg     0.7305    0.2601    0.1262      4640
+",8.190046942234039
+42,weighted_roberta,intermediate_ft,0.2,2969,2,4640,0.8230603448275862,0.7446680562072914,0.9157351676698194,0.5421372719374457,"[[3195, 294], [527, 624]]","              precision    recall  f1-score   support
+
+        REAL     0.8584    0.9157    0.8861      3489
+        FAKE     0.6797    0.5421    0.6032      1151
+
+    accuracy                         0.8231      4640
+   macro avg     0.7691    0.7289    0.7447      4640
+weighted avg     0.8141    0.8231    0.8160      4640
+",2.284970549742381

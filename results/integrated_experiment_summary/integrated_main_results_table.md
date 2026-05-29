@@ -2,7 +2,7 @@
 
 - Date: 2026-05-25
 - Purpose: one-table view of in-domain baseline, direct transfer, intermediate fine-tuning, and TELLER-like pilot.
-- Important: intermediate fine-tuning rows are currently seed-42 results; direct transfer transformer rows are existing 5-seed averages unless marked otherwise.
+- Important: intermediate fine-tuning rows are currently seed-42 results; direct transfer transformer rows are existing 5-seed averages unless marked otherwise. Do not describe the 20% row as a final optimised percentage unless additional seeds are run.
 - TELLER-like rows are exploratory pilot results and should not be framed as the main contribution.
 
 | block | setting | decision_model | training_data | test_data | runs | target_fraction | target_train_n | accuracy | macro_f1 | real_recall | fake_recall | note |
@@ -20,5 +20,5 @@
 
 - Direct LIAR -> FakeNewsNet transfer fails mainly through class bias: the model predicts FAKE for nearly all target examples.
 - Intermediate fine-tuning with 5% target data is not enough: it flips into an almost all-REAL classifier.
-- Intermediate fine-tuning becomes useful at 10% and improves further at 20%, reaching Macro-F1 0.7447 on the held-out FakeNewsNet test split.
+- Intermediate fine-tuning becomes useful at 10% and improves further at 20% in the current seed-42 pass, reaching Macro-F1 0.7447 on the held-out FakeNewsNet test split.
 - The TELLER-like atoms pilot shows some signal but preserves the cross-domain bias problem, so it remains supporting analysis rather than a main contribution.

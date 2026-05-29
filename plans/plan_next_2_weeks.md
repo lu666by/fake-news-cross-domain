@@ -4,11 +4,11 @@ _Last updated: 2026-05-29_
 
 ## Current context
 
-The project now has a complete dissertation story:
+The project now has a working dissertation story to confirm with the supervisor:
 
 1. LIAR in-domain baselines are established.
 2. Strict LIAR-to-FakeNewsNet direct transfer fails badly.
-3. Intermediate target-domain fine-tuning recovers performance.
+3. Intermediate target-domain fine-tuning recovers performance in the current seed-42 pass.
 4. TELLER-like reasoning atoms are useful only as exploratory supporting analysis.
 5. The dissertation draft has been updated and layout-checked.
 
@@ -20,7 +20,7 @@ Goal:
 
 Discussion points:
 
-- Is the intermediate fine-tuning result enough as the main "recovery" contribution?
+- Is the current seed-42 intermediate fine-tuning result enough as the main "recovery" contribution, or does it need more seeds before final submission?
 - Should 10% and 20% target fine-tuning be repeated across more seeds?
 - Should the TELLER-like pilot stay in Chapter 6, or be shortened/moved to appendix?
 

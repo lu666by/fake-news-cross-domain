@@ -2,7 +2,7 @@
 
 ## 30-second summary
 
-This week I finished the cross-dataset stage. The direct LIAR-to-FakeNewsNet result is poor, but that failure is now useful because the intermediate fine-tuning experiment shows how it can be recovered. So the dissertation story is no longer only "the model does not transfer"; it is "direct transfer is unreliable, and target-domain adaptation is needed."
+This week I finished the current cross-dataset experimental pass. The direct LIAR-to-FakeNewsNet result is poor, but that failure is now useful because the intermediate fine-tuning experiment shows how it may be recovered. So the dissertation story is no longer only "the model does not transfer"; it is "direct transfer is unreliable, and target-domain adaptation is needed."
 
 ## What I did this week
 
@@ -33,9 +33,9 @@ The result is:
 
 - 5% target data is not enough and flips the model toward REAL.
 - 10% target data gives the first effective recovery.
-- 20% target data gives the best current result.
+- 20% target data gives the best current seed-42 result.
 
-So the useful conclusion is not that the model is simply bad. The conclusion is that direct transfer is unreliable, but target-domain adaptation can recover performance.
+So the useful conclusion is not that the model is simply bad. The conclusion is that direct transfer is unreliable, but target-domain adaptation can recover performance. I should describe the 20% result as the best current pass, not as a final optimal percentage.
 
 ## How to explain TELLER-like atoms
 
@@ -48,6 +48,12 @@ The pilot suggests:
 - atom features contain some signal,
 - but they do not solve cross-dataset bias by themselves,
 - so they should remain supporting analysis.
+
+## What not to overclaim
+
+- Do not describe the 20% intermediate fine-tuning result as fully final until more seeds are run.
+- Do not claim that class weighting has no effect; the safer claim is that it is not the only or dominant explanation for the transfer failure.
+- Do not describe the TELLER-like pilot as a TELLER reproduction.
 
 ## Questions to ask the supervisor
 

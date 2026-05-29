@@ -6,7 +6,7 @@
 
 ## What I did this week
 
-This week I moved the project from "strict cross-dataset transfer fails" to a stronger and more useful dissertation story: direct transfer is unreliable, but intermediate target-domain fine-tuning can recover performance.
+This week I moved the project from "strict cross-dataset transfer fails" to a stronger and more useful dissertation story: direct transfer is unreliable, but intermediate target-domain fine-tuning can recover performance in the current experimental pass.
 
 ### 1. Completed the strict cross-dataset evaluation
 
@@ -16,7 +16,7 @@ Main finding:
 
 - Weighted RoBERTa performs best in-domain on LIAR, but under strict LIAR-to-FakeNewsNet transfer it becomes strongly FAKE-biased.
 - On FakeNewsNet combined titles, weighted RoBERTa reaches Macro-F1 `0.2358`, with REAL recall only `0.0372` and FAKE recall `0.9827`.
-- The unweighted BERT control shows a similar transfer failure, so the problem is mainly dataset shift rather than only the class-weighted loss.
+- The unweighted BERT control shows a similar transfer failure, so the problem appears to be mainly dataset shift rather than only the class-weighted loss.
 
 Evidence:
 
@@ -40,7 +40,7 @@ Interpretation:
 
 - 5% target fine-tuning is not enough and flips into an all-REAL-like model.
 - 10% becomes the first effective adaptation point.
-- 20% is the best current result and gives a much stronger conclusion than direct transfer alone.
+- 20% is the best current seed-42 result and gives a much stronger recovery signal than direct transfer alone.
 
 Evidence:
 
@@ -83,7 +83,7 @@ Evidence:
 
 The strongest explanation is:
 
-> A LIAR-trained fake-news classifier can look acceptable in-domain but fail sharply when transferred to FakeNewsNet titles. The failure is not just caused by class weighting; it reflects dataset shift. Intermediate target-domain fine-tuning shows that the failure can be recovered when some labelled target data is available, so the practical conclusion is not "the model is useless" but "direct transfer is unreliable without adaptation."
+> A LIAR-trained fake-news classifier can look acceptable in-domain but fail sharply when transferred to FakeNewsNet titles. The failure is not just caused by class weighting; it reflects dataset shift. The current intermediate target-domain fine-tuning pass shows that the failure can be recovered when some labelled target data is available, so the practical conclusion is not "the model is useless" but "direct transfer is unreliable without adaptation."
 
 ## What I want to discuss with the supervisor
 

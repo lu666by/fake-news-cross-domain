@@ -2,7 +2,7 @@
 
 This file keeps the original branch format: one compact tracker with task status and evidence paths.
 
-| Task | Start | Due | Steps (short) | Status | Evidence |
+| Task | Start | Due | Steps (short) | Status | Evidence (path/link) |
 |---|---:|---:|---|---|---|
 | LIAR: load + inspect dataset | 2026-03-05 | 2026-03-18 | Load train/valid/test splits; inspect label counts and binary mapping | Completed | `notebooks/01_liar_load.ipynb` |
 | LIAR: TF-IDF baseline | 2026-03-08 | 2026-03-25 | Run TF-IDF + Logistic Regression; report Accuracy, Macro-F1, confusion matrix | Completed | `notebooks/02_tfidf_baseline.ipynb`; `results/liar_baseline.md` |
@@ -30,4 +30,4 @@ This file keeps the original branch format: one compact tracker with task status
 
 ## Current main decision
 
-The dissertation should be framed around reproducible baselines, strict transfer failure, and target-domain fine-tuning recovery. The TELLER-like pilot is supporting analysis only.
+The dissertation should be framed around reproducible baselines, strict transfer failure, and target-domain fine-tuning recovery. The 20% intermediate fine-tuning result should be described as the best current seed-42 recovery result unless additional seeds are run. The TELLER-like pilot is supporting analysis only.

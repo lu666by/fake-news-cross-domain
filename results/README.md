@@ -23,8 +23,14 @@ This folder stores the main result summaries and compact evidence files for the 
 
 1. LIAR in-domain transformer baselines are reasonable but modest.
 2. Strict LIAR-to-FakeNewsNet transfer fails through severe target-domain class bias.
-3. Intermediate fine-tuning with 10-20% target-domain training data recovers performance.
+3. Intermediate fine-tuning with 10-20% target-domain training data recovers performance in the current seed-42 pass.
 4. TELLER-like atoms are useful as a small supporting pilot, not a main contribution.
+
+## Caution for thesis wording
+
+- Treat the 20% intermediate fine-tuning row as the best current seed-42 result, not as a final optimised target-data percentage.
+- If time allows, the 10% and 20% intermediate fine-tuning settings should be repeated across more seeds.
+- The direct-transfer rows and intermediate-fine-tuning rows should not be mixed without noting their different run counts.
 
 ## What is intentionally not stored here
 

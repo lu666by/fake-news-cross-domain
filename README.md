@@ -22,7 +22,7 @@ The dissertation is not framed as a new model architecture. Its main contributio
 
 ## Current project stage
 
-The project is now in the thesis-consolidation stage.
+The project is now in the thesis-consolidation and supervisor-review stage.
 
 Completed work:
 
@@ -30,9 +30,34 @@ Completed work:
 - Stabilised the main LIAR transformer comparison with five-seed results.
 - Ran strict LIAR-to-FakeNewsNet title transfer experiments.
 - Added an unweighted BERT transfer control to check whether class weighting alone explains the transfer failure.
-- Ran intermediate fine-tuning using 5%, 10%, and 20% of target-domain FakeNewsNet training data.
+- Ran the current intermediate fine-tuning pass using 5%, 10%, and 20% of target-domain FakeNewsNet training data.
 - Added an exploratory TELLER-like LLM reasoning-atoms pilot.
 - Updated and visually QA-checked the dissertation draft in `thesis_writeup/dissertation_final.docx` and `thesis_writeup/dissertation_final.pdf`.
+
+---
+
+## Current task setting
+
+### Source dataset
+
+- **LIAR**
+- Input text: `statement`
+- Binary mapping:
+  - **REAL (0):** `true`, `mostly-true`, `half-true`
+  - **FAKE (1):** `barely-true`, `false`, `pants-fire`
+
+### Target dataset
+
+- **FakeNewsNet minimal title dataset**
+- Input text: news title only
+- Main strict-transfer setting: train on LIAR, test directly on FakeNewsNet titles
+- Main adaptation setting: train on LIAR, then intermediate fine-tune on 5%, 10%, or 20% of FakeNewsNet training titles, then evaluate on the held-out FakeNewsNet test split
+
+### Evaluation emphasis
+
+- Accuracy is reported, but it is not sufficient by itself.
+- Macro-F1 and class-level REAL/FAKE recall are treated as the main evidence for transfer failure and recovery.
+- Intermediate fine-tuning rows are currently seed-42 results unless otherwise stated.
 
 ---
 
@@ -68,20 +93,21 @@ Interpretation:
 
 ### 3. Intermediate fine-tuning recovery
 
-Intermediate target-domain fine-tuning changes the interpretation of the cross-dataset experiment.
+The current seed-42 intermediate target-domain fine-tuning pass changes the interpretation of the cross-dataset experiment.
 
 | Setting | Accuracy | Macro-F1 | REAL recall | FAKE recall | Interpretation |
 |---|---:|---:|---:|---:|---|
 | LIAR -> held-out FNN test | 0.2601 | 0.2178 | 0.0183 | 0.9930 | Direct transfer collapses toward FAKE |
 | LIAR -> 5% FNN -> FNN test | 0.7519 | 0.4292 | 1.0000 | 0.0000 | Flips into an all-REAL-like model |
 | LIAR -> 10% FNN -> FNN test | 0.8125 | 0.7141 | 0.9304 | 0.4553 | First effective adaptation point |
-| LIAR -> 20% FNN -> FNN test | 0.8231 | 0.7447 | 0.9157 | 0.5421 | Best current target-domain result |
+| LIAR -> 20% FNN -> FNN test | 0.8231 | 0.7447 | 0.9157 | 0.5421 | Best current seed-42 target-domain result |
 
 Interpretation:
 
 - Direct transfer alone is not reliable.
 - Small target supervision can be unstable.
-- Around 10-20% target-domain fine-tuning gives a clear recovery.
+- Around 10-20% target-domain fine-tuning gives a clear recovery signal in the current pass.
+- The next reliability check is to repeat the 10% and 20% settings across more seeds if the supervisor wants a stronger experimental claim.
 
 ### 4. TELLER-like pilot
 
@@ -126,9 +152,9 @@ Main interpretation:
 
 ---
 
-## Recommended files to send before the next supervisor meeting
+## Recommended files before the next supervisor meeting
 
-Send these three files:
+Use the text in the first file as the email body, and attach or link the other two:
 
 1. `progress/supervisor_update_2026-05-29.md`
 2. `thesis_writeup/dissertation_final.pdf`
@@ -144,6 +170,17 @@ Optional if the supervisor wants more detail:
 
 ## Short explanation for the supervisor
 
-This week I moved the project from a direct-transfer failure result into a clearer dissertation contribution. The original strict LIAR-to-FakeNewsNet transfer result was poor, but the new intermediate fine-tuning experiment shows that the failure can be recovered when a small amount of target-domain supervision is available. This gives the thesis a stronger conclusion: the issue is not simply that the model is useless, but that direct transfer is unreliable and target-domain adaptation is needed.
+This week I moved the project from a direct-transfer failure result into a clearer dissertation contribution. The original strict LIAR-to-FakeNewsNet transfer result was poor, but the current intermediate fine-tuning experiment shows that the failure can be recovered when a small amount of target-domain supervision is available. This gives the thesis a stronger conclusion: the issue is not simply that the model is useless, but that direct transfer is unreliable and target-domain adaptation is needed.
 
 The dissertation draft has also been updated and visually checked so it is now in a supervisor-readable state.
+
+---
+
+## Implementation references
+
+Some implementation ideas were informed by publicly available repositories related to fake news detection and the LIAR dataset:
+
+- `https://github.com/tomtuamnuq/LIAR-Detect-Fake-News-Statement-Classification`
+- `https://github.com/moscatena/Fake-News-Classification`
+
+These repositories were used only as implementation references. They do not replace the notebooks and scripts in this repository. The files here remain project-specific working versions written for this dissertation workflow.

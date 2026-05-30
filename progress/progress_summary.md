@@ -2,7 +2,83 @@
 
 > Note for supervisor: `tracking.md` is the evidence index. This file is the short narrative progress update.
 
-## Latest update: 2026-05-29
+## Latest update: 2026-05-30
+
+## What I did after the 2026-05-29 supervisor meeting
+
+I completed the supervisor-requested reliability checks for the main comparable rows and prepared a supervisor-facing reading package.
+
+### 1. Re-ran titles-only direct transfer with five seeds
+
+The held-out titles-only direct transfer baseline is now a five-seed result rather than a seed-42-only observation.
+
+| Setting | Evidence | Accuracy | Macro-F1 | REAL recall | FAKE recall |
+|---|---|---:|---:|---:|---:|
+| LIAR -> held-out FakeNewsNet title test | 5 seeds | 0.2725 | 0.2364 | 0.0377 | 0.9842 |
+
+Interpretation: titles-only direct transfer remains consistently weak and strongly FAKE-biased. The old seed-42 result was not a lucky or unlucky exception.
+
+Evidence:
+
+- `results/intermediate_finetuning/titles_only_direct_transfer_heldout_5seed_summary_20260530.md`
+- `results/integrated_experiment_summary/integrated_main_results_table.md`
+
+### 2. Re-ran 10% and 20% intermediate fine-tuning with five seeds
+
+| Setting | Evidence | Accuracy | Macro-F1 | REAL recall | FAKE recall |
+|---|---|---:|---:|---:|---:|
+| LIAR -> 10% FNN -> FNN test | 5 seeds | 0.8083 | 0.7035 | 0.9305 | 0.4379 |
+| LIAR -> 20% FNN -> FNN test | 5 seeds | 0.8243 | 0.7463 | 0.9167 | 0.5444 |
+
+Interpretation: 10% is the more data-efficient stable recovery point. 20% is currently the strongest absolute target-fraction result. The 20% row is no longer seed-42 only.
+
+Evidence:
+
+- `results/intermediate_finetuning/intermediate_ft_10pct_5seed_summary_20260530.md`
+- `results/intermediate_finetuning/intermediate_ft_20pct_5seed_summary_20260530.md`
+
+### 3. Added dataset-shift explanation material
+
+I added LIAR vs FakeNewsNet descriptive analysis for length, vocabulary overlap, and distinctive terms. This supports the thesis explanation for why strict cross-dataset transfer is difficult.
+
+Evidence:
+
+- `results/dataset_shift_analysis/liar_vs_fakenewsnet_explanation_20260530.md`
+- `results/dataset_shift_analysis/vocabulary_overlap.md`
+- `results/dataset_shift_analysis/dataset_distinctive_terms.md`
+
+### 4. Tightened the LLM atom pilot wording
+
+The TELLER-like atom experiment is now described only as a current-setup pilot. The safe wording is: the current DeepSeek V4 Flash reasoning-atom setup shows limited performance in this pilot.
+
+Evidence:
+
+- `results/llm_reasoning_atoms/pilot_positioning_note_20260530.md`
+- `results/llm_reasoning_atoms/max_per_group_100_summary.md`
+
+### 5. Prepared supervisor-facing materials
+
+The recommended supervisor package is Chapter 2/3 plus the compact updated result summary. Chapter 6 remains an internal note until the supervisor decides how strongly to frame 10% vs 20%.
+
+Evidence:
+
+- `thesis_writeup/supervisor_materials_20260530/supervisor_ch2_ch3_results_2026-05-30.pdf`
+- `thesis_writeup/supervisor_materials_20260530/meeting_outline_2026-05-30.pdf`
+- `thesis_writeup/supervisor_materials_20260530/chapter6_internal_rerun_update_2026-05-30.md`
+
+## Current supervisor-facing story
+
+> Strict LIAR-to-FakeNewsNet title transfer is consistently weak across seeds. Small target-domain intermediate fine-tuning recovers performance: 10% is the more data-efficient stable setting, while 20% is the strongest absolute five-seed result. The LLM atom experiment is only a current-setup pilot with limited performance, not a main empirical claim.
+
+## What I want to discuss with the supervisor next
+
+1. Whether to frame the main adaptation claim around 10% efficiency, 20% best absolute performance, or both.
+2. Whether the 1000-row atom pilot should remain in Chapter 6, move to appendix, or be expanded with additional samples.
+3. Whether Chapter 2/3 are clear enough for the next full draft review.
+
+---
+
+## Previous update: 2026-05-29
 
 ## What I did this week
 
@@ -40,7 +116,7 @@ Interpretation:
 
 - 5% target fine-tuning is not enough and flips into an all-REAL-like model.
 - 10% becomes the first effective adaptation point.
-- 20% is the best current seed-42 result and gives a much stronger recovery signal than direct transfer alone.
+- This 2026-05-29 note has been superseded by the 2026-05-30 five-seed reruns; 20% is now the strongest absolute five-seed result.
 
 Evidence:
 

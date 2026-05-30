@@ -2,7 +2,7 @@
 
 This experiment is a lightweight TELLER-like pilot: an LLM generates structured cognition-style atoms, and a separate classifier makes the REAL/FAKE decision.
 
-**Fixed positioning:** this is an exploratory pilot, not the main contribution of the dissertation. It should be used as supporting evidence about the limits of LLM-generated reasoning signals under domain shift, while the main contribution remains the reproducible class-sensitive baseline and cross-dataset generalisation study.
+**Fixed positioning:** this is an exploratory pilot, not the main contribution of the dissertation. It should be used as supporting evidence that the current LLM-atom setup has limited performance under this cross-dataset setting, while the main contribution remains the reproducible class-sensitive baseline and cross-dataset generalisation study.
 
 ## Features
 

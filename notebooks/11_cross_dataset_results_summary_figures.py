@@ -121,9 +121,13 @@ def main() -> None:
         "Weighted BERT",
         "cross_dataset_weighted_bert_liar_to_fakenewsnet_summary.csv",
     )
+    unweighted_bert = load_transformer(
+        "Unweighted BERT",
+        "cross_dataset_unweighted_bert_liar_to_fakenewsnet_summary.csv",
+    )
 
-    combined = pd.concat([tfidf, roberta, bert], ignore_index=True)
-    model_order = ["TF-IDF + Logistic Regression", "Weighted RoBERTa", "Weighted BERT"]
+    combined = pd.concat([tfidf, roberta, bert, unweighted_bert], ignore_index=True)
+    model_order = ["TF-IDF + Logistic Regression", "Weighted RoBERTa", "Weighted BERT", "Unweighted BERT"]
     target_order = [
         "LIAR test",
         "FakeNewsNet PolitiFact titles",
@@ -155,14 +159,15 @@ def main() -> None:
         "## Key Findings",
         "",
         "- All models drop substantially from LIAR in-domain testing to FakeNewsNet title transfer.",
-        "- TF-IDF achieves the best Macro-F1 on FakeNewsNet combined titles among the three completed transfer baselines, but it is still weak at 0.4745 Macro-F1.",
+        "- TF-IDF achieves the best Macro-F1 on FakeNewsNet combined titles among the four completed transfer baselines, but it is still weak at 0.4745 Macro-F1.",
         "- Weighted RoBERTa is best on LIAR, but transfers poorly to FakeNewsNet combined titles, with 0.2358 Macro-F1.",
         "- Weighted BERT transfers slightly better than weighted RoBERTa on FakeNewsNet combined titles, with 0.2682 Macro-F1, but still performs poorly overall.",
-        "- The weighted transformer models strongly over-predict FAKE on FakeNewsNet titles, producing very high FAKE recall but extremely low REAL recall.",
+        "- Unweighted BERT also transfers poorly, with 0.2806 Macro-F1 on FakeNewsNet combined titles.",
+        "- The weighted and unweighted transformer models strongly over-predict FAKE on FakeNewsNet titles, producing very high FAKE recall but extremely low REAL recall.",
         "",
         "## Thesis Interpretation",
         "",
-        "The cross-dataset results support the main dissertation argument: in-domain LIAR performance does not guarantee cross-dataset reliability. The strongest in-domain model, weighted RoBERTa, is not the strongest transfer model on FakeNewsNet titles. This suggests that the transformer models may learn LIAR-specific decision boundaries that do not transfer cleanly to a different dataset and text type.",
+        "The cross-dataset results support the main dissertation argument: in-domain LIAR performance does not guarantee cross-dataset reliability. The strongest in-domain model, weighted RoBERTa, is not the strongest transfer model on FakeNewsNet titles. The unweighted BERT control shows a similar target-domain failure pattern, so the transfer problem should not be attributed only to class-weighted loss. This suggests that the transformer models may learn LIAR-specific decision boundaries that do not transfer cleanly to a different dataset and text type.",
         "",
         "The results must be interpreted carefully because FakeNewsNet minimal uses titles rather than full article text. The experiment is therefore a short-text transfer test from LIAR statements to FakeNewsNet titles.",
         "",

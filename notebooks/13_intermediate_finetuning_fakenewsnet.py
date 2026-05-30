@@ -247,7 +247,7 @@ def save_outputs(results: list[dict], history: list[dict], args) -> None:
         f"- Model key: `{args.model_key}`",
         f"- Seeds: `{args.seeds}`",
         "- Source stage: train on LIAR train, select checkpoint by LIAR validation Macro-F1.",
-        "- Intermediate stage: continue fine-tuning on a balanced fraction of FakeNewsNet train titles, select checkpoint by FakeNewsNet validation Macro-F1.",
+        "- Intermediate stage: continue fine-tuning on a stratified target fraction of FakeNewsNet train titles, select checkpoint by FakeNewsNet validation Macro-F1.",
         "- Final target evaluation: held-out FakeNewsNet test titles.",
         "- This is the main follow-up experiment after the direct LIAR -> FakeNewsNet transfer baseline.",
         "",

@@ -16,6 +16,15 @@ This folder stores the main result summaries and compact evidence files for the 
 - `intermediate_finetuning/intermediate_finetuning_weighted_roberta_seeds_42.md`
   Intermediate fine-tuning result for weighted RoBERTa, seed 42.
 
+- `intermediate_finetuning/intermediate_ft_10pct_5seed_summary_20260530.md`
+  Five-seed summary for 10% intermediate fine-tuning.
+
+- `intermediate_finetuning/intermediate_ft_20pct_5seed_summary_20260530.md`
+  Five-seed summary for 20% intermediate fine-tuning.
+
+- `dataset_shift_analysis/liar_vs_fakenewsnet_explanation_20260530.md`
+  Dataset-shift explanation using length, vocabulary overlap, and distinctive-term analysis.
+
 - `llm_reasoning_atoms/max_per_group_100_summary.md`
   TELLER-like reasoning-atoms pilot summary.
 
@@ -23,14 +32,14 @@ This folder stores the main result summaries and compact evidence files for the 
 
 1. LIAR in-domain transformer baselines are reasonable but modest.
 2. Strict LIAR-to-FakeNewsNet transfer fails through severe target-domain class bias.
-3. Intermediate fine-tuning with 10-20% target-domain training data recovers performance in the current seed-42 pass.
+3. Intermediate fine-tuning with 10-20% target-domain training data recovers performance in the current five-seed reruns.
 4. TELLER-like atoms are useful as a small supporting pilot, not a main contribution.
 
 ## Caution for thesis wording
 
-- Treat the 20% intermediate fine-tuning row as the best current seed-42 result, not as a final optimised target-data percentage.
-- If time allows, the 10% and 20% intermediate fine-tuning settings should be repeated across more seeds.
-- The direct-transfer rows and intermediate-fine-tuning rows should not be mixed without noting their different run counts.
+- Treat the 10% row as the more data-efficient stable recovery point.
+- Treat the 20% row as the strongest absolute five-seed target-fraction result so far, not as a final optimised target-data percentage.
+- Keep the TELLER-like atom pilot limited to the current DeepSeek V4 Flash reasoning-atom setup.
 
 ## What is intentionally not stored here
 

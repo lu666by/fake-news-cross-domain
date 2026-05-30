@@ -22,7 +22,7 @@ The dissertation is not framed as a new model architecture. Its main contributio
 
 ## Current project stage
 
-The project is now in the thesis-consolidation and supervisor-review stage.
+The project is now in the thesis-consolidation and supervisor-review stage. The 2026-05-29 supervisor-requested reruns have been completed for the main comparable rows.
 
 Completed work:
 
@@ -30,8 +30,10 @@ Completed work:
 - Stabilised the main LIAR transformer comparison with five-seed results.
 - Ran strict LIAR-to-FakeNewsNet title transfer experiments.
 - Added an unweighted BERT transfer control to check whether class weighting alone explains the transfer failure.
-- Ran the current intermediate fine-tuning pass using 5%, 10%, and 20% of target-domain FakeNewsNet training data.
-- Added an exploratory TELLER-like LLM reasoning-atoms pilot.
+- Re-ran the held-out titles-only direct transfer baseline with five seeds.
+- Re-ran 10% and 20% intermediate fine-tuning with the same five seeds.
+- Added LIAR vs FakeNewsNet dataset-shift analysis for title length, vocabulary overlap, and distinctive terms.
+- Kept the exploratory TELLER-like LLM reasoning-atoms pilot as current-setup evidence only.
 - Updated and visually QA-checked the dissertation draft in `thesis_writeup/dissertation_final.docx` and `thesis_writeup/dissertation_final.pdf`.
 
 ---
@@ -93,21 +95,21 @@ Interpretation:
 
 ### 3. Intermediate fine-tuning recovery
 
-The current seed-42 intermediate target-domain fine-tuning pass changes the interpretation of the cross-dataset experiment.
+The intermediate target-domain fine-tuning reruns change the interpretation of the cross-dataset experiment. Direct transfer is consistently weak, but target-domain fine-tuning recovers performance when a small labelled target subset is available.
 
-| Setting | Accuracy | Macro-F1 | REAL recall | FAKE recall | Interpretation |
-|---|---:|---:|---:|---:|---|
-| LIAR -> held-out FNN test | 0.2601 | 0.2178 | 0.0183 | 0.9930 | Direct transfer collapses toward FAKE |
-| LIAR -> 5% FNN -> FNN test | 0.7519 | 0.4292 | 1.0000 | 0.0000 | Flips into an all-REAL-like model |
-| LIAR -> 10% FNN -> FNN test | 0.8125 | 0.7141 | 0.9304 | 0.4553 | First effective adaptation point |
-| LIAR -> 20% FNN -> FNN test | 0.8231 | 0.7447 | 0.9157 | 0.5421 | Best current seed-42 target-domain result |
+| Setting | Evidence | Accuracy | Macro-F1 | REAL recall | FAKE recall | Interpretation |
+|---|---|---:|---:|---:|---:|---|
+| LIAR -> held-out FNN title test | 5 seeds | 0.2725 | 0.2364 | 0.0377 | 0.9842 | Direct transfer is consistently FAKE-biased |
+| LIAR -> 5% FNN -> FNN test | seed 42 | 0.7519 | 0.4292 | 1.0000 | 0.0000 | High accuracy is misleading; model collapses to REAL |
+| LIAR -> 10% FNN -> FNN test | 5 seeds | 0.8083 | 0.7035 | 0.9305 | 0.4379 | Stable, data-efficient recovery |
+| LIAR -> 20% FNN -> FNN test | 5 seeds | 0.8243 | 0.7463 | 0.9167 | 0.5444 | Best absolute target-fraction result so far |
 
 Interpretation:
 
 - Direct transfer alone is not reliable.
 - Small target supervision can be unstable.
-- Around 10-20% target-domain fine-tuning gives a clear recovery signal in the current pass.
-- The next reliability check is to repeat the 10% and 20% settings across more seeds if the supervisor wants a stronger experimental claim.
+- The 10% setting is the more data-efficient stable recovery point.
+- The 20% setting is currently the strongest absolute five-seed result.
 
 ### 4. TELLER-like pilot
 
@@ -117,7 +119,8 @@ Main interpretation:
 
 - Coarse LLM-generated atoms can carry some signal.
 - They do not remove the cross-dataset bias problem by themselves.
-- The dissertation should not claim full TELLER reproduction.
+- The current DeepSeek V4 Flash reasoning-atom setup shows limited performance in this pilot.
+- The dissertation should not claim full TELLER reproduction; it should only report what this current setup did in this pilot.
 
 ---
 

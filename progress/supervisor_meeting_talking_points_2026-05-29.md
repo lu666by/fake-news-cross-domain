@@ -1,5 +1,7 @@
 # Supervisor Meeting Talking Points - 2026-05-29
 
+> Superseded note: the 10% and 20% intermediate fine-tuning settings were re-run with five seeds on 2026-05-30. Use `progress/progress_summary.md` and `thesis_writeup/supervisor_materials_20260530/meeting_outline_2026-05-30.pdf` for the current supervisor-facing version.
+
 ## 30-second summary
 
 This week I finished the current cross-dataset experimental pass. The direct LIAR-to-FakeNewsNet result is poor, but that failure is now useful because the intermediate fine-tuning experiment shows how it may be recovered. So the dissertation story is no longer only "the model does not transfer"; it is "direct transfer is unreliable, and target-domain adaptation is needed."
@@ -33,7 +35,7 @@ The result is:
 
 - 5% target data is not enough and flips the model toward REAL.
 - 10% target data gives the first effective recovery.
-- 20% target data gives the best current seed-42 result.
+- 20% target data gave the best seed-42 result in this older note; the current 2026-05-30 result is a five-seed mean.
 
 So the useful conclusion is not that the model is simply bad. The conclusion is that direct transfer is unreliable, but target-domain adaptation can recover performance. I should describe the 20% result as the best current pass, not as a final optimal percentage.
 
@@ -51,7 +53,7 @@ The pilot suggests:
 
 ## What not to overclaim
 
-- Do not describe the 20% intermediate fine-tuning result as fully final until more seeds are run.
+- Do not describe the 20% intermediate fine-tuning result as seed-42-only; it now has a five-seed rerun. The remaining question is whether to emphasize 10% efficiency or 20% absolute performance.
 - Do not claim that class weighting has no effect; the safer claim is that it is not the only or dominant explanation for the transfer failure.
 - Do not describe the TELLER-like pilot as a TELLER reproduction.
 

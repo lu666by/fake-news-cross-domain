@@ -59,7 +59,7 @@ Completed work:
 
 - Accuracy is reported, but it is not sufficient by itself.
 - Macro-F1 and class-level REAL/FAKE recall are treated as the main evidence for transfer failure and recovery.
-- Intermediate fine-tuning rows are currently seed-42 results unless otherwise stated.
+- The held-out direct-transfer row and the 10% and 20% intermediate fine-tuning rows are five-seed results (42, 52, 62, 72, 82); the 5% row is still seed-42 only and is treated as internal draft evidence.
 
 ---
 
@@ -86,12 +86,14 @@ The LIAR-trained transformer models fail badly under strict direct transfer to F
 Key result:
 
 - Weighted RoBERTa direct transfer to FakeNewsNet combined titles: Macro-F1 `0.2358`, REAL recall `0.0372`, FAKE recall `0.9827`.
+- The same failure holds on the held-out title test split across five seeds: mean Macro-F1 `0.2364`, REAL recall `0.0377`, FAKE recall `0.9842`.
 
 Interpretation:
 
-- The transfer failure is not a small performance drop.
+- The transfer failure is not a small performance drop, and it is consistent across seeds rather than a single-run accident.
 - The model becomes strongly biased toward FAKE on the target dataset.
-- The unweighted BERT control shows that this is mainly a dataset-shift problem, not only a class-weighting artifact.
+- The unweighted BERT control shows that this is mainly a dataset-shift problem, not only a class-weighting artifact; `results/dataset_shift_analysis/` provides supporting evidence.
+- Note on titles vs full text: FakeNewsNet Minimal provides titles only, with no article body, so this is a LIAR-statement to FakeNewsNet-title transfer rather than full-article detection.
 
 ### 3. Intermediate fine-tuning recovery
 
@@ -145,29 +147,33 @@ Main interpretation:
   Main experiment notebooks and scripts.
 
 - `results/`
-  Result summaries, CSV outputs, figures, and interpretation notes.
+  Result summaries, CSV outputs, figures, and interpretation notes. Includes `intermediate_finetuning/` (with the 2026-05-30 five-seed reruns) and `dataset_shift_analysis/` (LIAR vs FakeNewsNet length, vocabulary overlap, and distinctive terms).
 
 - `papers/`
   Reading list and selected paper summaries. PDF files are not stored in this repository.
 
 - `thesis_writeup/`
-  Current dissertation draft and PDF export.
+  Current dissertation draft and PDF export, plus `supervisor_materials_20260530/` (the current supervisor reading package: Chapter 2/3, updated results summary, meeting outline, and an internal Chapter 6 rerun note).
 
 ---
 
 ## Recommended files before the next supervisor meeting
 
-Use the text in the first file as the email body, and attach or link the other two:
+The next supervisor meeting is 2026-06-04 14:30. The current supervisor-facing reading package is in `thesis_writeup/supervisor_materials_20260530/`. Following the supervisor's direction, it leads with Chapter 2/3 and an updated 5-seed results summary, and keeps Chapter 6 as an internal rerun draft for now.
 
-1. `progress/supervisor_update_2026-05-29.md`
-2. `thesis_writeup/dissertation_final.pdf`
-3. `results/integrated_experiment_summary/integrated_main_results_table.md`
+Recommended order:
+
+1. `thesis_writeup/supervisor_materials_20260530/meeting_outline_2026-05-30.pdf` (one-page outline: completed reruns, main findings, open questions)
+2. `thesis_writeup/supervisor_materials_20260530/supervisor_ch2_ch3_results_2026-05-30.pdf` (Chapter 2/3 plus updated 5-seed result summary)
+3. `results/integrated_experiment_summary/integrated_main_results_table.md` (one-table view, now 5-seed for the key rows)
 
 Optional if the supervisor wants more detail:
 
+- `results/intermediate_finetuning/intermediate_ft_10pct_5seed_summary_20260530.md` and `..._20pct_5seed_summary_20260530.md`
+- `results/dataset_shift_analysis/liar_vs_fakenewsnet_explanation_20260530.md`
 - `results/integrated_experiment_summary/experiment_credibility_audit.md`
-- `results/cross_dataset/cross_dataset_model_comparison.md`
-- `results/intermediate_finetuning/intermediate_finetuning_weighted_roberta_seeds_42.md`
+
+The dated notes in `progress/` (2026-05-29) are point-in-time records from before the five-seed reruns; the files above supersede them.
 
 ---
 

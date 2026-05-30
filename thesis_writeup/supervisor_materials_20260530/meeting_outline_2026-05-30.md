@@ -22,6 +22,7 @@ I have checked the rerun evidence and updated the supervisor-facing material. Th
 ## 3. Still Uncertain
 
 - The 5% intermediate fine-tuning row is also seed 42 only and collapses to almost all REAL predictions, so it is not a stable claim.
+- Note on "titles vs full text": FakeNewsNet Minimal provides titles only, with no article body text available locally, so there is no full-body version to compare against. The two numbers seen previously (held-out title test 0.2364 vs combined titles 0.2358) are both title-based and effectively the same. The transfer experiment is therefore a LIAR-statement to FakeNewsNet-title setting, not full-article detection.
 - The main framing choice is now between emphasizing 10% as the efficient adaptation result or 20% as the best absolute result.
 - The 1000-row LLM/DeepSeek atom pilot is one sample only. It can support motivation, but it should not be used as a main empirical conclusion.
 - Chapter 6 can be internally updated, but Chapter 2/3 plus the compact result summary are better for supervisor review first.

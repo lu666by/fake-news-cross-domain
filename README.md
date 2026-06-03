@@ -6,6 +6,43 @@
 
 ---
 
+## This week at a glance — week of 2026-05-30 (for the 2026-06-04 supervisor meeting)
+
+**In one sentence:** I made the key cross-dataset results fair by rerunning them across five seeds, added a dataset-shift analysis explaining *why* transfer is hard, and packaged a Chapter 2/3 reading version for review.
+
+**Start here:** [1-page meeting outline](thesis_writeup/supervisor_materials_20260530/meeting_outline_2026-05-30.pdf) → [Chapter 2/3 + results (PDF)](thesis_writeup/supervisor_materials_20260530/supervisor_ch2_ch3_results_2026-05-30.pdf) → [one-table results](results/integrated_experiment_summary/integrated_main_results_table.md)
+
+**What I did this week — click through to the evidence:**
+
+| # | What I did | Jump to |
+|---|---|---|
+| 1 | Reran the **titles-only direct transfer** baseline over 5 seeds — failure is consistent, not a seed-42 accident | [5-seed summary](results/intermediate_finetuning/titles_only_direct_transfer_heldout_5seed_summary_20260530.md) |
+| 2 | Reran **10% intermediate fine-tuning** over 5 seeds — stable, data-efficient recovery | [5-seed summary](results/intermediate_finetuning/intermediate_ft_10pct_5seed_summary_20260530.md) |
+| 3 | Reran **20% intermediate fine-tuning** over 5 seeds — strongest absolute result | [5-seed summary](results/intermediate_finetuning/intermediate_ft_20pct_5seed_summary_20260530.md) |
+| 4 | Added a **LIAR vs FakeNewsNet dataset-shift analysis** (length, vocabulary overlap, distinctive terms) | [analysis](results/dataset_shift_analysis/liar_vs_fakenewsnet_explanation_20260530.md) · [figures](results/dataset_shift_analysis/figures) |
+| 5 | Updated the **one-table results view** (key rows now 5-seed) | [integrated table](results/integrated_experiment_summary/integrated_main_results_table.md) |
+| 6 | Packaged **Chapter 2/3 + results summary** for reading; kept Chapter 6 as an internal rerun draft | [Ch2/3 PDF](thesis_writeup/supervisor_materials_20260530/supervisor_ch2_ch3_results_2026-05-30.pdf) · [internal Ch6 note](thesis_writeup/supervisor_materials_20260530/chapter6_internal_rerun_update_2026-05-30.md) |
+
+**Headline numbers** — held-out FakeNewsNet *title* test, weighted RoBERTa, mean over 5 seeds (42/52/62/72/82):
+
+| Setting | Macro-F1 | Accuracy | REAL recall | FAKE recall |
+|---|---:|---:|---:|---:|
+| Direct transfer (no target data) | 0.2364 | 0.2725 | 0.0377 | 0.9842 |
+| + 10% target-title fine-tuning | 0.7035 | 0.8083 | 0.9305 | 0.4379 |
+| + 20% target-title fine-tuning | 0.7463 | 0.8243 | 0.9167 | 0.5444 |
+
+Reading: strict direct transfer fails consistently (collapses to FAKE); a small amount of target-domain title supervision recovers performance — 10% is the data-efficient point, 20% is the strongest absolute.
+
+**Open questions I would like to decide at the meeting** (details in the [meeting outline](thesis_writeup/supervisor_materials_20260530/meeting_outline_2026-05-30.pdf)):
+
+1. Frame the main claim around 10% efficiency, 20% best absolute, or both?
+2. Keep the 1000-row LLM/DeepSeek atom run as a short pilot, or move it to future work?
+3. Is Chapter 2/3 clear enough as the next reading package?
+
+> Full detail and history are in [`tracking.md`](tracking.md) and [`progress/progress_summary.md`](progress/progress_summary.md). The notes dated 2026-05-29 in `progress/` predate the five-seed reruns and are kept only as point-in-time records.
+
+---
+
 ## Project overview
 
 This project studies whether fake-news detection models that work on one dataset remain reliable when they are applied to another dataset with different text style, label distribution, and annotation assumptions.

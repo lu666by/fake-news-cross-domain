@@ -12,7 +12,7 @@ papers/pdfs/
 thesis_writeup/qa_outputs/
 thesis_writeup/archive_old_versions*/
 
-# 内部准备/质检稿与生成的二进制(本地保留,不公开)
+# Local-only preparation notes, quality checks, and generated binaries.
 progress/meeting_talking_points_2026-05-29.md
 thesis_writeup/review_materials_20260530/meeting_outline_2026-05-30.md
 thesis_writeup/review_materials_20260530/meeting_outline_2026-05-30.docx

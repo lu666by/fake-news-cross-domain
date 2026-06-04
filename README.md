@@ -5,24 +5,32 @@
 
 ---
 
-## This week at a glance — week of 2026-05-30 (for the 2026-06-04 review meeting)
+## Last week's progress - week of 2026-05-30
 
-**In one sentence:** I made the key cross-dataset results fair by rerunning them across five seeds, added a dataset-shift analysis explaining *why* transfer is hard, and packaged a Chapter 2/3 reading version for review.
+**Project in one sentence:** This dissertation tests whether fake-news classifiers trained on LIAR remain reliable on FakeNewsNet titles, and whether a small amount of target-domain fine-tuning can recover the transfer failure.
 
-**Start here:** [Chapter 2/3 + results summary](thesis_writeup/review_materials_20260530/ch2_ch3_results_2026-05-30.md) → [one-table results](results/integrated_experiment_summary/integrated_main_results_table.md)
+**Last week's main progress:** I reran the key cross-dataset experiments across five seeds, added a dataset-shift explanation, and prepared a Chapter 2/3 reading file with the updated results.
 
-**What I did this week — click through to the evidence:**
+**Recommended reading path:**
+
+1. Start with the [Chapter 2/3 + results summary](thesis_writeup/review_materials_20260530/ch2_ch3_results_2026-05-30.md).
+2. Check the [one-table results view](results/integrated_experiment_summary/integrated_main_results_table.md) for the main numbers.
+3. Use the linked evidence files below only if more detail is needed.
+
+**Most important result from last week:** the key cross-dataset rows have now been rerun across five seeds, and the result is clearer: strict direct transfer fails consistently, while 10% and 20% target-domain fine-tuning recover performance.
+
+**What I completed last week:**
 
 | # | What I did | Jump to |
 |---|---|---|
-| 1 | Reran the **titles-only direct transfer** baseline over 5 seeds — failure is consistent, not a seed-42 accident | [5-seed summary](results/intermediate_finetuning/titles_only_direct_transfer_heldout_5seed_summary_20260530.md) |
-| 2 | Reran **10% intermediate fine-tuning** over 5 seeds — stable, data-efficient recovery | [5-seed summary](results/intermediate_finetuning/intermediate_ft_10pct_5seed_summary_20260530.md) |
-| 3 | Reran **20% intermediate fine-tuning** over 5 seeds — strongest absolute result | [5-seed summary](results/intermediate_finetuning/intermediate_ft_20pct_5seed_summary_20260530.md) |
-| 4 | Added a **LIAR vs FakeNewsNet dataset-shift analysis** (length, vocabulary overlap, distinctive terms) | [analysis](results/dataset_shift_analysis/liar_vs_fakenewsnet_explanation_20260530.md) · [figures](results/dataset_shift_analysis/figures) |
+| 1 | Reran the **titles-only direct transfer** baseline over 5 seeds; the failure is consistent, not a seed-42 accident | [5-seed summary](results/intermediate_finetuning/titles_only_direct_transfer_heldout_5seed_summary_20260530.md) |
+| 2 | Reran **10% intermediate fine-tuning** over 5 seeds; this is the stable, data-efficient recovery point | [5-seed summary](results/intermediate_finetuning/intermediate_ft_10pct_5seed_summary_20260530.md) |
+| 3 | Reran **20% intermediate fine-tuning** over 5 seeds; this is the strongest absolute result so far | [5-seed summary](results/intermediate_finetuning/intermediate_ft_20pct_5seed_summary_20260530.md) |
+| 4 | Added a **LIAR vs FakeNewsNet dataset-shift analysis** (length, vocabulary overlap, distinctive terms) | [analysis](results/dataset_shift_analysis/liar_vs_fakenewsnet_explanation_20260530.md) / [figures](results/dataset_shift_analysis/figures) |
 | 5 | Updated the **one-table results view** (key rows now 5-seed) | [integrated table](results/integrated_experiment_summary/integrated_main_results_table.md) |
-| 6 | Packaged **Chapter 2/3 + results summary** for reading; kept Chapter 6 as an internal rerun draft | [Ch2/3 + results summary](thesis_writeup/review_materials_20260530/ch2_ch3_results_2026-05-30.md) |
+| 6 | Packaged **Chapter 2/3 + results summary** as the current review reading file | [Ch2/3 + results summary](thesis_writeup/review_materials_20260530/ch2_ch3_results_2026-05-30.md) |
 
-**Headline numbers** — held-out FakeNewsNet *title* test, weighted RoBERTa, mean over 5 seeds (42/52/62/72/82):
+**Headline numbers:** held-out FakeNewsNet *title* test, weighted RoBERTa, mean over 5 seeds (42/52/62/72/82).
 
 | Setting | Macro-F1 | Accuracy | REAL recall | FAKE recall |
 |---|---:|---:|---:|---:|
@@ -30,15 +38,15 @@
 | + 10% target-title fine-tuning | 0.7035 | 0.8083 | 0.9305 | 0.4379 |
 | + 20% target-title fine-tuning | 0.7463 | 0.8243 | 0.9167 | 0.5444 |
 
-Reading: strict direct transfer fails consistently (collapses to FAKE); a small amount of target-domain title supervision recovers performance — 10% is the data-efficient point, 20% is the strongest absolute.
+Reading: strict direct transfer fails consistently and collapses toward FAKE. A small amount of target-domain title supervision recovers performance: 10% is the data-efficient point, and 20% is the strongest absolute result.
 
-**Open questions I would like to decide at the meeting:**
+**Decision points for review:**
 
 1. Frame the main claim around 10% efficiency, 20% best absolute, or both?
 2. Keep the 1000-row LLM/DeepSeek atom run as a short pilot, or move it to future work?
 3. Is Chapter 2/3 clear enough as the next reading package?
 
-> Full detail and history are in [`tracking.md`](tracking.md) and [`progress/progress_summary.md`](progress/progress_summary.md). The notes dated 2026-05-29 in `progress/` predate the five-seed reruns and are kept only as point-in-time records.
+Full detail and history are in [`tracking.md`](tracking.md) and [`progress/progress_summary.md`](progress/progress_summary.md). The notes dated 2026-05-29 in `progress/` predate the five-seed reruns and are kept only as point-in-time records.
 
 ---
 
@@ -190,9 +198,9 @@ Main interpretation:
 
 ---
 
-## Recommended files for the next review
+## Recommended files for review
 
-The next review meeting is 2026-06-04 14:30. The current review reading package is in `thesis_writeup/review_materials_20260530/`. It leads with Chapter 2/3 and an updated 5-seed results summary, and keeps Chapter 6 as an internal rerun draft for now.
+The current review reading package is in `thesis_writeup/review_materials_20260530/`. It leads with Chapter 2/3 and an updated 5-seed results summary. Chapter 6 should be reviewed after the framing decision on the 10% and 20% target-domain fine-tuning results.
 
 Recommended order:
 

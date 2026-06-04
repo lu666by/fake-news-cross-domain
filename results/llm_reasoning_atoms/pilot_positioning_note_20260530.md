@@ -13,7 +13,7 @@ The current cache contains one 1000-row sample generated with DeepSeek V4 Flash:
 - FakeNewsNet train REAL/FAKE: 100 + 100
 - FakeNewsNet test REAL/FAKE: 100 + 100
 
-This is useful as a small feasibility check, but it is not enough to support a strong claim about TELLER-like reasoning atoms in general. The supervisor's concern is valid: one random sample can make the result look better or worse than a different 1000-row sample.
+This is useful as a small feasibility check, but it is not enough to support a strong claim about TELLER-like reasoning atoms in general. This concern is valid: one random sample can make the result look better or worse than a different 1000-row sample.
 
 A second practical limitation is that the current shell does not have `DEEPSEEK_API_KEY` or `OPENAI_API_KEY` configured, so new independent LLM annotation samples cannot be generated immediately. The current script also writes to a single fixed cache path, so repeated samples would need isolated work directories or a cache-path argument to avoid mixing samples.
 

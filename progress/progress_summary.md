@@ -1,12 +1,12 @@
 # Progress Summary (living document)
 
-> Note for supervisor: `tracking.md` is the evidence index. This file is the short narrative progress update.
+> Note: `tracking.md` is the evidence index. This file is the short narrative progress update.
 
 ## Latest update: 2026-05-30
 
-## What I did after the 2026-05-29 supervisor meeting
+## What I did after the 2026-05-29 meeting
 
-I completed the supervisor-requested reliability checks for the main comparable rows and prepared a supervisor-facing reading package.
+I completed the requested reliability checks for the main comparable rows and prepared a review reading package.
 
 ### 1. Re-ran titles-only direct transfer with five seeds
 
@@ -56,21 +56,19 @@ Evidence:
 - `results/llm_reasoning_atoms/pilot_positioning_note_20260530.md`
 - `results/llm_reasoning_atoms/max_per_group_100_summary.md`
 
-### 5. Prepared supervisor-facing materials
+### 5. Prepared review materials
 
-The recommended supervisor package is Chapter 2/3 plus the compact updated result summary. Chapter 6 remains an internal note until the supervisor decides how strongly to frame 10% vs 20%.
+The recommended review package is Chapter 2/3 plus the compact updated result summary. Chapter 6 remains an internal note until a decision on how strongly to frame 10% vs 20%.
 
 Evidence:
 
-- `thesis_writeup/supervisor_materials_20260530/supervisor_ch2_ch3_results_2026-05-30.pdf`
-- `thesis_writeup/supervisor_materials_20260530/meeting_outline_2026-05-30.pdf`
-- `thesis_writeup/supervisor_materials_20260530/chapter6_internal_rerun_update_2026-05-30.md`
+- `thesis_writeup/review_materials_20260530/ch2_ch3_results_2026-05-30.md`
 
-## Current supervisor-facing story
+## Current framing
 
 > Strict LIAR-to-FakeNewsNet title transfer is consistently weak across seeds. Small target-domain intermediate fine-tuning recovers performance: 10% is the more data-efficient stable setting, while 20% is the strongest absolute five-seed result. The LLM atom experiment is only a current-setup pilot with limited performance, not a main empirical claim.
 
-## What I want to discuss with the supervisor next
+## What I want to discuss next
 
 1. Whether to frame the main adaptation claim around 10% efficiency, 20% best absolute performance, or both.
 2. Whether the 1000-row atom pilot should remain in Chapter 6, move to appendix, or be expanded with additional samples.
@@ -101,7 +99,7 @@ Evidence:
 
 ### 2. Added intermediate target-domain fine-tuning
 
-Following the supervisor's previous direction, I tested whether a small amount of FakeNewsNet target-domain training data can recover the direct-transfer failure.
+Following the earlier direction, I tested whether a small amount of FakeNewsNet target-domain training data can recover the direct-transfer failure.
 
 Main seed-42 result:
 
@@ -161,7 +159,7 @@ The strongest explanation is:
 
 > A LIAR-trained fake-news classifier can look acceptable in-domain but fail sharply when transferred to FakeNewsNet titles. The failure is not just caused by class weighting; it reflects dataset shift. The current intermediate target-domain fine-tuning pass shows that the failure can be recovered when some labelled target data is available, so the practical conclusion is not "the model is useless" but "direct transfer is unreliable without adaptation."
 
-## What I want to discuss with the supervisor
+## What I want to discuss
 
 1. Whether the intermediate fine-tuning result is strong enough as the main recovery experiment.
 2. Whether I should repeat the 10% and 20% target fine-tuning settings over multiple seeds.

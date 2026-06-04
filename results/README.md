@@ -2,7 +2,7 @@
 
 This folder stores the main result summaries and compact evidence files for the dissertation.
 
-## Key files for supervisor review
+## Key files for review
 
 - `integrated_experiment_summary/integrated_main_results_table.md`
   One-table view of in-domain, direct transfer, intermediate fine-tuning, and TELLER-like pilot results.

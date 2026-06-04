@@ -1,16 +1,15 @@
 # MSc Project - Cross-dataset Generalisation for Fake News Detection
 
-**Supervisor:** Dr. Josephine Griffith
 **Student:** Boyu Lu
 **Current thesis title:** Cross-Dataset Generalisation for Fake News Detection Using Reproducible Transformer-Based Baselines
 
 ---
 
-## This week at a glance — week of 2026-05-30 (for the 2026-06-04 supervisor meeting)
+## This week at a glance — week of 2026-05-30 (for the 2026-06-04 review meeting)
 
 **In one sentence:** I made the key cross-dataset results fair by rerunning them across five seeds, added a dataset-shift analysis explaining *why* transfer is hard, and packaged a Chapter 2/3 reading version for review.
 
-**Start here:** [1-page meeting outline](thesis_writeup/supervisor_materials_20260530/meeting_outline_2026-05-30.pdf) → [Chapter 2/3 + results (PDF)](thesis_writeup/supervisor_materials_20260530/supervisor_ch2_ch3_results_2026-05-30.pdf) → [one-table results](results/integrated_experiment_summary/integrated_main_results_table.md)
+**Start here:** [Chapter 2/3 + results summary](thesis_writeup/review_materials_20260530/ch2_ch3_results_2026-05-30.md) → [one-table results](results/integrated_experiment_summary/integrated_main_results_table.md)
 
 **What I did this week — click through to the evidence:**
 
@@ -21,7 +20,7 @@
 | 3 | Reran **20% intermediate fine-tuning** over 5 seeds — strongest absolute result | [5-seed summary](results/intermediate_finetuning/intermediate_ft_20pct_5seed_summary_20260530.md) |
 | 4 | Added a **LIAR vs FakeNewsNet dataset-shift analysis** (length, vocabulary overlap, distinctive terms) | [analysis](results/dataset_shift_analysis/liar_vs_fakenewsnet_explanation_20260530.md) · [figures](results/dataset_shift_analysis/figures) |
 | 5 | Updated the **one-table results view** (key rows now 5-seed) | [integrated table](results/integrated_experiment_summary/integrated_main_results_table.md) |
-| 6 | Packaged **Chapter 2/3 + results summary** for reading; kept Chapter 6 as an internal rerun draft | [Ch2/3 PDF](thesis_writeup/supervisor_materials_20260530/supervisor_ch2_ch3_results_2026-05-30.pdf) · [internal Ch6 note](thesis_writeup/supervisor_materials_20260530/chapter6_internal_rerun_update_2026-05-30.md) |
+| 6 | Packaged **Chapter 2/3 + results summary** for reading; kept Chapter 6 as an internal rerun draft | [Ch2/3 + results summary](thesis_writeup/review_materials_20260530/ch2_ch3_results_2026-05-30.md) |
 
 **Headline numbers** — held-out FakeNewsNet *title* test, weighted RoBERTa, mean over 5 seeds (42/52/62/72/82):
 
@@ -33,7 +32,7 @@
 
 Reading: strict direct transfer fails consistently (collapses to FAKE); a small amount of target-domain title supervision recovers performance — 10% is the data-efficient point, 20% is the strongest absolute.
 
-**Open questions I would like to decide at the meeting** (details in the [meeting outline](thesis_writeup/supervisor_materials_20260530/meeting_outline_2026-05-30.pdf)):
+**Open questions I would like to decide at the meeting:**
 
 1. Frame the main claim around 10% efficiency, 20% best absolute, or both?
 2. Keep the 1000-row LLM/DeepSeek atom run as a short pilot, or move it to future work?
@@ -59,7 +58,7 @@ The dissertation is not framed as a new model architecture. Its main contributio
 
 ## Current project stage
 
-The project is now in the thesis-consolidation and supervisor-review stage. The 2026-05-29 supervisor-requested reruns have been completed for the main comparable rows.
+The project is now in the thesis-consolidation and review stage. The 2026-05-29 requested reruns have been completed for the main comparable rows.
 
 Completed work:
 
@@ -171,11 +170,8 @@ Main interpretation:
 - `progress/progress_summary.md`
   Narrative weekly progress update.
 
-- `progress/supervisor_update_2026-05-29.md`
-  Short message that can be sent to the supervisor before the next meeting.
-
-- `progress/supervisor_meeting_talking_points_2026-05-29.md`
-  Speaking notes for explaining this week's work in the meeting.
+- `progress/progress_update_2026-05-29.md`
+  Short progress message prepared before the next meeting.
 
 - `plans/plan_next_2_weeks.md`
   Current forward plan after the latest results.
@@ -190,21 +186,20 @@ Main interpretation:
   Reading list and selected paper summaries. PDF files are not stored in this repository.
 
 - `thesis_writeup/`
-  Current dissertation draft and PDF export, plus `supervisor_materials_20260530/` (the current supervisor reading package: Chapter 2/3, updated results summary, meeting outline, and an internal Chapter 6 rerun note).
+  Current dissertation draft and PDF export, plus `review_materials_20260530/` (the current review reading package: Chapter 2/3 plus the updated results summary).
 
 ---
 
-## Recommended files before the next supervisor meeting
+## Recommended files for the next review
 
-The next supervisor meeting is 2026-06-04 14:30. The current supervisor-facing reading package is in `thesis_writeup/supervisor_materials_20260530/`. Following the supervisor's direction, it leads with Chapter 2/3 and an updated 5-seed results summary, and keeps Chapter 6 as an internal rerun draft for now.
+The next review meeting is 2026-06-04 14:30. The current review reading package is in `thesis_writeup/review_materials_20260530/`. It leads with Chapter 2/3 and an updated 5-seed results summary, and keeps Chapter 6 as an internal rerun draft for now.
 
 Recommended order:
 
-1. `thesis_writeup/supervisor_materials_20260530/meeting_outline_2026-05-30.pdf` (one-page outline: completed reruns, main findings, open questions)
-2. `thesis_writeup/supervisor_materials_20260530/supervisor_ch2_ch3_results_2026-05-30.pdf` (Chapter 2/3 plus updated 5-seed result summary)
-3. `results/integrated_experiment_summary/integrated_main_results_table.md` (one-table view, now 5-seed for the key rows)
+1. `thesis_writeup/review_materials_20260530/ch2_ch3_results_2026-05-30.md` (Chapter 2/3 plus updated 5-seed result summary)
+2. `results/integrated_experiment_summary/integrated_main_results_table.md` (one-table view, now 5-seed for the key rows)
 
-Optional if the supervisor wants more detail:
+Optional for more detail:
 
 - `results/intermediate_finetuning/intermediate_ft_10pct_5seed_summary_20260530.md` and `..._20pct_5seed_summary_20260530.md`
 - `results/dataset_shift_analysis/liar_vs_fakenewsnet_explanation_20260530.md`
@@ -214,11 +209,11 @@ The dated notes in `progress/` (2026-05-29) are point-in-time records from befor
 
 ---
 
-## Short explanation for the supervisor
+## Short explanation of the work
 
 This week I moved the project from a direct-transfer failure result into a clearer dissertation contribution. The original strict LIAR-to-FakeNewsNet transfer result was poor, but the current intermediate fine-tuning experiment shows that the failure can be recovered when a small amount of target-domain supervision is available. This gives the thesis a stronger conclusion: the issue is not simply that the model is useless, but that direct transfer is unreliable and target-domain adaptation is needed.
 
-The dissertation draft has also been updated and visually checked so it is now in a supervisor-readable state.
+The dissertation draft has also been updated and visually checked so it is now in a review-ready state.
 
 ---
 

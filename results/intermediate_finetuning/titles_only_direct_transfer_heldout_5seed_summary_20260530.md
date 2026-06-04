@@ -44,7 +44,7 @@
 
 The two title-only direct-transfer summaries are effectively the same. The held-out split is not showing a meaningful improvement over the existing combined-title evaluation; both expose the same severe FAKE-biased transfer failure.
 
-## Answer for supervisor
+## Answer
 
 The original seed-42 result is not an unusually strong lucky run. Its Macro-F1 (0.2178) is slightly below the new 5-seed mean (0.2364) and well within the observed range (0.2178-0.2817).
 However, the 5-seed results remain very poor overall: mean Accuracy 0.2725, mean Macro-F1 0.2364, mean REAL recall 0.0377, and mean FAKE recall 0.9842. The model still heavily over-predicts FAKE on FakeNewsNet titles.

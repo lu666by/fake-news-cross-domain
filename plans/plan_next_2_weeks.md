@@ -4,7 +4,7 @@ _Last updated: 2026-05-29_
 
 ## Current context
 
-The project now has a working dissertation story to confirm with the supervisor:
+The project now has a working dissertation story to confirm at the next review:
 
 1. LIAR in-domain baselines are established.
 2. Strict LIAR-to-FakeNewsNet direct transfer fails badly.
@@ -12,7 +12,7 @@ The project now has a working dissertation story to confirm with the supervisor:
 4. TELLER-like reasoning atoms are useful only as exploratory supporting analysis.
 5. The dissertation draft has been updated and layout-checked.
 
-## Priority 1: Supervisor meeting and framing confirmation
+## Priority 1: Review meeting and framing confirmation
 
 Goal:
 
@@ -26,8 +26,7 @@ Discussion points:
 
 Files:
 
-- `progress/supervisor_update_2026-05-29.md`
-- `progress/supervisor_meeting_talking_points_2026-05-29.md`
+- `progress/progress_update_2026-05-29.md`
 - `thesis_writeup/dissertation_final.pdf`
 
 ## Priority 2: Strengthen experimental reliability if requested
@@ -55,7 +54,7 @@ Tasks:
 - Check tables/figures after any text changes.
 - Keep `thesis_writeup/dissertation_final.pdf` in sync with the Word draft.
 
-## Out of scope unless supervisor asks
+## Out of scope unless requested
 
 - Full TELLER reproduction.
 - New architecture design.
@@ -64,6 +63,6 @@ Tasks:
 
 ## Expected next deliverables
 
-- Supervisor-confirmed final experiment scope.
+- Confirmed final experiment scope.
 - If needed: multi-seed intermediate fine-tuning summary.
 - Final dissertation text pass.

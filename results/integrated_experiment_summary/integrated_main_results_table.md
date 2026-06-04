@@ -23,5 +23,5 @@
 - Direct LIAR -> FakeNewsNet title transfer is consistently weak across seeds: mean Macro-F1 is 0.2364 and the model still predicts FAKE for most target examples.
 - The 10% intermediate fine-tuning rerun is a stable data-efficient improvement: mean Macro-F1 is 0.7035 across five seeds, with a mean uplift of 0.4671 over source-only direct transfer.
 - The 20% intermediate fine-tuning rerun is currently the strongest absolute five-seed target-fraction result: mean Macro-F1 is 0.7463, Accuracy is 0.8243, REAL recall is 0.9167, and FAKE recall is 0.5444.
-- The supervisor-facing framing question is whether to emphasize the efficiency of 10% or the best absolute performance of 20%.
+- The framing question is whether to emphasize the efficiency of 10% or the best absolute performance of 20%.
 - The TELLER-like 1000-row atom experiment remains a pilot. It can support discussion about the current DeepSeek V4 Flash reasoning-atom setup, whose performance is limited in this pilot.

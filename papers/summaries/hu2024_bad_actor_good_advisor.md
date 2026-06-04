@@ -37,7 +37,7 @@ Hu et al. show that GPT-3.5 by itself underperforms a fine-tuned BERT for fake n
 - Even ARG-D still requires the API once at training time, so direct reproduction is unlikely to fit my budget.
 
 ## 7) How I will use it in my project (direct mapping)
-- This is one of the core **2024 references** the supervisor specifically asked me to add. It belongs in the **"LLM and reasoning-based fake news detection"** section of my literature review.
+- This is one of the core **2024 references** to add. It belongs in the **"LLM and reasoning-based fake news detection"** section of my literature review.
 - It complements TELLER: where TELLER uses LLM-generated logic atoms as part of a structured framework, Hu et al. use LLM rationales as soft advice to an SLM. Citing both gives a fuller picture of how 2024 work integrates LLMs with smaller models.
 - The "LLM as advisor, not predictor" framing is a useful **interpretive lens** for the discussion section: my own results show fine-tuned RoBERTa (an SLM) beating naive LLM-style approaches, which is consistent with their finding.
 - The paper supports the conservative MSc-scope decision to keep my main system as a fine-tuned BERT/RoBERTa and only refer to LLM-based work as literature comparison.

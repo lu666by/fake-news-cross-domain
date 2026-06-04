@@ -1,10 +1,6 @@
-# Supervisor Update - 2026-05-29
+# Progress Update - 2026-05-29
 
-Subject: Weekly update before our next meeting
-
-Dear Dr. Griffith,
-
-I wanted to send a short update before our next meeting.
+Short progress update before the next meeting.
 
 This week I completed the current cross-dataset experimental pass and updated the dissertation draft. The main result is that strict direct transfer from LIAR to FakeNewsNet titles fails badly, but a first intermediate target-domain fine-tuning pass gives a much clearer recovery signal.
 
@@ -20,13 +16,9 @@ Files worth looking at before the meeting:
 
 - `thesis_writeup/dissertation_final.pdf`
 - `results/integrated_experiment_summary/integrated_main_results_table.md`
-- `progress/supervisor_meeting_talking_points_2026-05-29.md`
 
 The main points I would like to discuss are:
 
 1. Whether the current framing is strong enough: reproducible baselines -> strict transfer failure -> target-domain fine-tuning recovery.
 2. Whether I should spend the remaining experiment time repeating the 10% and 20% intermediate fine-tuning settings across more seeds, or prioritise final thesis polishing.
 3. Whether the TELLER-like pilot should stay in the main chapter or be shortened/moved to appendix.
-
-Best regards,
-Boyu

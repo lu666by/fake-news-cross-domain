@@ -11,3 +11,14 @@ data/**/*.tsv
 papers/pdfs/
 thesis_writeup/qa_outputs/
 thesis_writeup/archive_old_versions*/
+
+# 内部准备/质检稿与生成的二进制(本地保留,不公开)
+progress/meeting_talking_points_2026-05-29.md
+thesis_writeup/review_materials_20260530/meeting_outline_2026-05-30.md
+thesis_writeup/review_materials_20260530/meeting_outline_2026-05-30.docx
+thesis_writeup/review_materials_20260530/meeting_outline_2026-05-30.pdf
+thesis_writeup/review_materials_20260530/pre_meeting_quality_check_2026-05-30.md
+thesis_writeup/review_materials_20260530/chapter6_internal_rerun_update_2026-05-30.md
+thesis_writeup/review_materials_20260530/ch2_ch3_results_2026-05-30.docx
+thesis_writeup/review_materials_20260530/ch2_ch3_results_2026-05-30.pdf
+thesis_writeup/review_materials_20260530/build_review_materials.py

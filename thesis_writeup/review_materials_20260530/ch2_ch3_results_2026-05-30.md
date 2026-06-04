@@ -1,8 +1,8 @@
-# Supervisor Reading Version: Chapters 2 and 3 with Updated Results Summary
+# Review Reading Version: Chapters 2 and 3 with Updated Results Summary
 
 Date: 2026-05-30
 
-This version is intended for supervisor reading before the next meeting. It prioritizes Chapter 2 and Chapter 3, plus a concise summary of the updated rerun evidence. Chapter 6 has been updated internally, but it should not be the main material sent for close reading yet.
+This version is intended for review reading before the next meeting. It prioritizes Chapter 2 and Chapter 3, plus a concise summary of the updated rerun evidence. Chapter 6 has been updated internally, but it should not be the main material sent for close reading yet.
 
 ## What changed this week
 

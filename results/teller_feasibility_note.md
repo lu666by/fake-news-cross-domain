@@ -1,7 +1,7 @@
 # TELLER Feasibility Note
 
 **Date:** 2026-05-09
-**Purpose:** Answer the supervisor's question: "Can you use TELLER? If not, why not?"
+**Purpose:** Answer the question: "Can you use TELLER? If not, why not?"
 **Reference:** Liu et al. (2024), Findings of ACL 2024. Code: https://github.com/less-and-less-bugs/Trust_TELLER
 
 ---
@@ -97,7 +97,7 @@ The logic predicates that guide the LLM are hand-crafted by domain experts. Repr
 
 4. **If time and API access permit**: Running TELLER on the same LIAR binary split would produce a directly comparable result. This is noted as possible future work, but not a current commitment.
 
-**Summary sentence for supervisor:**
+**Summary sentence:**
 TELLER is useful as an advanced literature comparison. Full reproduction within this MSc project is not currently feasible due to OpenAI API cost and system complexity, but it is included as a published benchmark result and discussed in the literature review.
 
 ---

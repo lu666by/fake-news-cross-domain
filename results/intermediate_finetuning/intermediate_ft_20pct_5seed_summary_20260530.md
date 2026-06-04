@@ -40,4 +40,4 @@
 
 The 20% intermediate fine-tuning rerun is no longer a seed-42-only result. Across five seeds it reaches mean Accuracy 0.8243 +/- 0.0049 and mean Macro-F1 0.7463 +/- 0.0060. Relative to the direct titles-only baseline, the mean Macro-F1 uplift is 0.5099. Compared with the 10% rerun, 20% improves mean Macro-F1 from 0.7035 to 0.7463 and mean FAKE recall from 0.4379 to 0.5444, while REAL recall is slightly lower (0.9305 -> 0.9167).
 
-Preliminary thesis framing: 10% is the more data-efficient result, while 20% is currently the strongest absolute five-seed intermediate fine-tuning setting. The supervisor-facing question is whether to emphasize efficiency (10%) or best absolute performance (20%).
+Preliminary thesis framing: 10% is the more data-efficient result, while 20% is currently the strongest absolute five-seed intermediate fine-tuning setting. The framing question is whether to emphasize efficiency (10%) or best absolute performance (20%).

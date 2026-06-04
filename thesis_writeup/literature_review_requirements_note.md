@@ -1,6 +1,6 @@
 # Literature Review Requirements Note
 
-**Based on:** QingyuWang_researchProject.pdf (MSc thesis, University of Galway, supervisor: Dr. Josephine Griffith, August 2025)
+**Based on:** QingyuWang_researchProject.pdf (MSc thesis, University of Galway, August 2025)
 **Purpose:** Understand the standard for a MSc literature review before improving my own draft.
 
 ---

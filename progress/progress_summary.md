@@ -150,8 +150,8 @@ The current dissertation draft has been updated with:
 
 Evidence:
 
-- `thesis_writeup/dissertation_final.docx`
-- `thesis_writeup/dissertation_final.pdf`
+- `thesis_writeup/dissertation_current.docx`
+- `thesis_writeup/dissertation_current.docx`
 
 ## Main thesis story now
 

@@ -27,7 +27,7 @@ Discussion points:
 Files:
 
 - `progress/progress_update_2026-05-29.md`
-- `thesis_writeup/dissertation_final.pdf`
+- `thesis_writeup/dissertation_current.docx`
 
 ## Priority 2: Strengthen experimental reliability if requested
 
@@ -52,7 +52,7 @@ Tasks:
 - Tighten Chapter 6 wording so the direct-transfer failure and adaptation recovery are easy to follow.
 - Keep TELLER-like atoms clearly framed as exploratory only.
 - Check tables/figures after any text changes.
-- Keep `thesis_writeup/dissertation_final.pdf` in sync with the Word draft.
+- Export a PDF from `thesis_writeup/dissertation_current.docx` only when one is explicitly needed.
 
 ## Out of scope unless requested
 

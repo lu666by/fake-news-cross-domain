@@ -1,0 +1,5 @@
+stage,test_n,accuracy,macro_f1,real_recall,fake_recall,confusion_matrix,setting
+in_domain_PolitiFact,212,0.9245283018867925,0.9204502814258912,0.976,0.8505747126436781,"[[122, 3], [13, 74]]",In-domain PolitiFact
+in_domain_GossipCop,4428,0.8437217705510388,0.7962125917955007,0.8733273862622658,0.7502347417840376,"[[2937, 426], [266, 799]]",In-domain GossipCop
+transfer_PolitiFact_to_GossipCop,22140,0.301806684733514,0.28600188408314753,0.10073140274722008,0.9370655645312793,"[[1694, 15123], [335, 4988]]",Transfer PolitiFact -> GossipCop
+transfer_GossipCop_to_PolitiFact,1056,0.4725378787878788,0.4722420864397031,0.3798076923076923,0.6064814814814815,"[[237, 387], [170, 262]]",Transfer GossipCop -> PolitiFact

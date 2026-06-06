@@ -14,7 +14,7 @@ The current interpretation is:
 
 Files worth looking at before the meeting:
 
-- `thesis_writeup/dissertation_final.pdf`
+- `thesis_writeup/dissertation_current.docx`
 - `results/integrated_experiment_summary/integrated_main_results_table.md`
 
 The main points I would like to discuss are:

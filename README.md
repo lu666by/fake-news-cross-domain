@@ -78,7 +78,9 @@ Completed work:
 - Re-ran 10% and 20% intermediate fine-tuning with the same five seeds.
 - Added LIAR vs FakeNewsNet dataset-shift analysis for title length, vocabulary overlap, and distinctive terms.
 - Kept the exploratory TELLER-like LLM reasoning-atoms pilot as current-setup evidence only.
-- Updated and visually QA-checked the dissertation draft in `thesis_writeup/dissertation_final.docx` and `thesis_writeup/dissertation_final.pdf`.
+- Added within-FakeNewsNet subpart transfer (PolitiFact vs GossipCop) with both TF-IDF and weighted RoBERTa, showing the same cross-domain drop and FAKE-bias also exists inside FakeNewsNet.
+- Added a comparison with prior cross-domain fake-news work (datasets, methods, headline results) to position this reproducible text-only baseline.
+- Updated and visually QA-checked the dissertation draft in `thesis_writeup/dissertation_current.docx`.
 
 ---
 

@@ -19,6 +19,9 @@ This folder keeps the original project workflow format: numbered notebooks/scrip
 | 11 | `11_cross_dataset_results_summary_figures.py` | Cross-dataset summary tables and figures |
 | 12 | `12_llm_reasoning_atoms_teller_like.py` | Exploratory TELLER-like reasoning-atoms pilot |
 | 13 | `13_intermediate_finetuning_fakenewsnet.py` | Intermediate target-domain fine-tuning |
+| 14 | `14_dataset_shift_analysis.py` | LIAR vs FakeNewsNet dataset-shift analysis (length, vocabulary overlap, distinctive terms) |
+| 14 | `14_fakenewsnet_subpart_transfer_tfidf.py` | Within-FakeNewsNet subpart transfer (PolitiFact vs GossipCop), TF-IDF baseline |
+| 15 | `15_fnn_subpart_transfer_roberta.py` | Within-FakeNewsNet subpart transfer, weighted RoBERTa |
 
 ## Utility modules
 

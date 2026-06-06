@@ -5,6 +5,23 @@
 
 ---
 
+## Current status - updated 2026-06-06
+
+**Where things stand:** Following the 4 June supervisor meeting, the dissertation draft is in a review-ready state in [`thesis_writeup/dissertation_current.docx`](thesis_writeup/dissertation_current.docx). Since that meeting I added the two pieces of analysis the meeting asked for.
+
+**New since the meeting:**
+
+1. **Within-FakeNewsNet subpart transfer** (PolitiFact vs GossipCop), with both TF-IDF and weighted RoBERTa. Each subpart is learnable in-domain (Macro-F1 ≈ 0.78–0.92), but transfer between them drops sharply (Macro-F1 ≈ 0.29–0.54), and the stronger RoBERTa transfers *worse* and reproduces the same FAKE-bias — so the domain gap also exists inside FakeNewsNet. → [results](results/fakenewsnet_subpart_transfer/) (now Section 6.7 / Table 6.4 in the thesis).
+2. **Comparison with prior cross-domain work** (datasets, methods, headline results), positioning this reproducible text-only baseline against propagation-graph and specialised-architecture systems. → [draft](thesis_writeup/chapter_revisions/cross_domain_comparison_and_subpart_2026-06-05.md) (now Section 7.2 / Table 7.1 in the thesis).
+
+Chapter 3 was also restructured around the experiment types, and its dataset section no longer repeats the Chapter 2 descriptions.
+
+**Decisions from the 4 June meeting** (these settle the "Decision points for review" listed further below): five-seed reruns confirmed titles-only is effectively equivalent to full-text; both the 10% (data-efficient) and 20% (best absolute) fine-tuning rows are kept; the TELLER-like pilot stays as supporting analysis only.
+
+The 2026-05-30 weekly update below is kept as a point-in-time record.
+
+---
+
 ## Last week's progress - week of 2026-05-30
 
 **Project in one sentence:** This dissertation tests whether fake-news classifiers trained on LIAR remain reliable on FakeNewsNet titles, and whether a small amount of target-domain fine-tuning can recover the transfer failure.
@@ -40,11 +57,11 @@
 
 Reading: strict direct transfer fails consistently and collapses toward FAKE. A small amount of target-domain title supervision recovers performance: 10% is the data-efficient point, and 20% is the strongest absolute result.
 
-**Decision points for review:**
+**Decision points for review** (raised on 2026-05-30; settled at the 4 June meeting — see "Current status" at the top):
 
-1. Frame the main claim around 10% efficiency, 20% best absolute, or both?
-2. Keep the 1000-row LLM/DeepSeek atom run as a short pilot, or move it to future work?
-3. Is Chapter 2/3 clear enough as the next reading package?
+1. Frame the main claim around 10% efficiency, 20% best absolute, or both? → keep both.
+2. Keep the 1000-row LLM/DeepSeek atom run as a short pilot, or move it to future work? → kept as a supporting pilot.
+3. Is Chapter 2/3 clear enough as the next reading package? → Chapter 2/3 accepted and since restructured by experiment type.
 
 Full detail and history are in [`tracking.md`](tracking.md) and [`progress/progress_summary.md`](progress/progress_summary.md). The notes dated 2026-05-29 in `progress/` predate the five-seed reruns and are kept only as point-in-time records.
 

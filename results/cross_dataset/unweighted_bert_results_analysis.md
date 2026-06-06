@@ -78,7 +78,7 @@ The main cause of poor LIAR → FakeNewsNet transfer is **dataset distribution s
 
 ## Output Files Generated
 
-- [cross_dataset_unweighted_bert_liar_to_fakenewsnet.md](file:///c:/Users/lby/Downloads/v2/results/cross_dataset/cross_dataset_unweighted_bert_liar_to_fakenewsnet.md)
+- `results/cross_dataset/cross_dataset_unweighted_bert_liar_to_fakenewsnet.md`
 - `results/cross_dataset/cross_dataset_unweighted_bert_liar_to_fakenewsnet.csv`
 - `results/cross_dataset/cross_dataset_unweighted_bert_liar_to_fakenewsnet_summary.csv`
 - `results/cross_dataset/cross_dataset_unweighted_bert_liar_to_fakenewsnet_full.csv`

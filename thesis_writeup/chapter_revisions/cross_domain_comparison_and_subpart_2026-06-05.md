@@ -33,7 +33,7 @@ FakeNewsNet minimal contains two source domains — **PolitiFact** (political, 1
 - The drop is **asymmetric**. PolitiFact → GossipCop collapses to 0.42 (a small political-claims model does not cover entertainment headlines). GossipCop → PolitiFact is better (0.54) because GossipCop is ~20× larger, but it still loses ~0.29 Macro-F1 versus in-domain PolitiFact and becomes REAL-biased (FAKE recall 0.25).
 - This is consistent with, and reinforces, the dissertation's main argument: in-domain performance does not transfer across domains, and the cause is domain/topic shift rather than the model being weak.
 
-Evidence: `results/fakenewsnet_subpart_transfer/fnn_subpart_transfer_tfidf.{md,csv}`; script `notebooks/14_fakenewsnet_subpart_transfer_tfidf.py`.
+Evidence: `results/fakenewsnet_subpart_transfer/fnn_subpart_transfer_tfidf.{md,csv}`; script `notebooks/15_fakenewsnet_subpart_transfer_tfidf.py`.
 
 *Next step (optional, GPU): repeat with weighted RoBERTa to confirm the same pattern under the transformer baseline.*
 

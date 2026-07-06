@@ -1,0 +1,7 @@
+comparison,metric,n,mean_a,mean_b,mean_diff_a_minus_b,t_statistic,p_value,significant_p_lt_0_05,test,seeds
+LIAR weighted RoBERTa vs weighted BERT,macro_f1,5,0.6396,0.6322,0.0075,1.6392,0.176509,no,"paired t-test, two-sided","42,52,62,72,82"
+LIAR weighted BERT vs unweighted BERT,macro_f1,5,0.6322,0.6231,0.0091,1.2597,0.276263,no,"paired t-test, two-sided","42,52,62,72,82"
+LIAR weighted RoBERTa vs unweighted BERT,macro_f1,5,0.6396,0.6231,0.0166,1.8773,0.133701,no,"paired t-test, two-sided","42,52,62,72,82"
+FNN 10pct intermediate FT vs direct transfer,macro_f1,5,0.7035,0.2364,0.4671,25.0905,0.000015,yes,"paired t-test, two-sided","42,52,62,72,82"
+FNN 20pct intermediate FT vs direct transfer,macro_f1,5,0.7463,0.2364,0.5099,38.0605,0.000003,yes,"paired t-test, two-sided","42,52,62,72,82"
+FNN 20pct intermediate FT vs 10pct intermediate FT,macro_f1,5,0.7463,0.7035,0.0428,3.1886,0.033262,yes,"paired t-test, two-sided","42,52,62,72,82"
